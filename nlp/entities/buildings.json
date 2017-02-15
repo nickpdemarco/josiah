@@ -1,0 +1,286 @@
+{
+    "name" : "buildings",
+    "entries":
+    [
+        {
+            "value": "University Hall",
+            "synonyms": [
+                "University Hall"
+            ]
+        },
+        {
+            "value": "Alumnae Hall",
+            "synonyms": [
+                "Alumnae Hall",
+                "Alumni Hall"
+            ]
+        },
+        {
+            "value": "Arnold Laboratory",
+            "synonyms": [
+                "Arnold Laboratory"
+            ]
+        },
+        {
+            "value": "Barus and Holley Building",
+            "synonyms": [
+                "Barus and Holley Building",
+                "B and H",
+                "Barus and Holley"
+            ]
+        },
+        {
+            "value": "Barus Hall",
+            "synonyms": [
+                "Barus Hall",
+                "Barus"
+            ]
+        },
+        {
+            "value": "Grant Recital Hall",
+            "synonyms": [
+                "Grant Recital Hall",
+                "Grant"
+            ]
+        },
+        {
+            "value": "List Art Building",
+            "synonyms": [
+                "List Art Building",
+                "List"
+            ]
+        },
+        {
+            "value": "MacMillan Hall",
+            "synonyms": [
+                "MacMillan Hall",
+                "MacMillan"
+            ]
+        },
+        {
+            "value": "Metcalf Research Laboratory",
+            "synonyms": [
+                "Metcalf Research Laboratory",
+                "Metcalf Lab"
+            ]
+        },
+        {
+            "value": "Morrison Gerard Studio",
+            "synonyms": [
+                "Morrison Gerard Studio"
+            ]
+        },
+        {
+            "value": "Prince Engineering Laboratory",
+            "synonyms": [
+                "Prince Engineering Laboratory",
+                "Prince Lab",
+                "Prince Engineering"
+            ]
+        },
+        {
+            "value": "Sayles Hall",
+            "synonyms": [
+                "Sayles Hall",
+                "Sayles"
+            ]
+        },
+        {
+            "value": "Smith Buonanno Hall",
+            "synonyms": [
+                "Smith Buonanno Hall",
+                "Smith Buonanno",
+                "Smitty Bee"
+            ]
+        },
+        {
+            "value": "Steinert Hall",
+            "synonyms": [
+                "Steinert Hall",
+                "Steinert Studio",
+                "Steinert",
+                "Steinert Recording Studio"
+            ]
+        },
+        {
+            "value": "T.F. Green Hall",
+            "synonyms": [
+                "T.F. Green Hall",
+                "T.F. Green"
+            ]
+        },
+        {
+            "value": "Watson Center of Information Technology",
+            "synonyms": [
+                "Watson Center of Information Technology",
+                "CIT",
+                "The CIT",
+                "the C I T",
+                "The C. I. T.",
+                "The See Eye Tea"
+            ]
+        },
+        {
+            "value": "Watson Institute for International Studies",
+            "synonyms": [
+                "Watson Institute for International Studies",
+                "The Watson",
+                "The Watson Institute"
+            ]
+        },
+        {
+            "value": "Grad Center",
+            "synonyms": [
+                "Grad Center",
+                "The Grad Center",
+                "Graduate Center"
+            ]
+        },
+        {
+            "value": "Annmary Brown Memorial",
+            "synonyms": [
+                "Annmary Brown Memorial",
+                "Annmary Brown Building"
+            ]
+        },
+        {
+            "value": "John Carter Brown Library",
+            "synonyms": [
+                "John Carter Brown Library",
+                "John Carter Library",
+                "Carter Brown Library"
+            ]
+        },
+        {
+            "value": "John D. Rockefeller Library",
+            "synonyms": [
+                "John D. Rockefeller Library",
+                "The Rock",
+                "Rock",
+                "Rockefeller Library"
+            ]
+        },
+        {
+            "value": "John Hay Library",
+            "synonyms": [
+                "John Hay Library",
+                "The Hay",
+                "The Hay Library"
+            ]
+        },
+        {
+            "value": "Orwig Music Center",
+            "synonyms": [
+                "Orwig Music Center",
+                "Orwig Library",
+                "The Orwig",
+                "Orwig"
+            ]
+        },
+        {
+            "value": "Sciences Library",
+            "synonyms": [
+                "Sciences Library",
+                "The Sigh Lie",
+                "The Sci Li",
+                "The Sci Lie",
+                "The Psy Lie"
+            ]
+        },
+        {
+            "value": "Barbour Hall",
+            "synonyms": [
+                "Barbour Hall",
+                "Barbour"
+            ]
+        },
+        {
+            "value": "King House",
+            "synonyms": [
+                "King House"
+            ]
+        },
+        {
+            "value": "Perkins Hall",
+            "synonyms": [
+                "Perkins Hall",
+                "Perkins"
+            ]
+        },
+        {
+            "value": "Young Orchard",
+            "synonyms": [
+                "Young Orchard",
+                "Young O"
+            ]
+        },
+        {
+            "value": "Vartan Gregorian Quad A",
+            "synonyms": [
+                "Vartan Gregorian Quad A",
+                "New Dorm A"
+            ]
+        },
+        {
+            "value": "Vartan Gregorian Quad B",
+            "synonyms": [
+                "Vartan Gregorian Quad B",
+                "New Dorm B"
+            ]
+        },
+        {
+            "value": "Minden Hall",
+            "synonyms": [
+                "Minden Hall",
+                "Minden",
+                "Minden Hotel"
+            ]
+        },
+        {
+            "value": "Slater Hall",
+            "synonyms": [
+                "Slater Hall",
+                "Slater"
+            ]
+        },
+        {
+            "value": "Andrews Hall",
+            "synonyms": [
+                "Andrews Hall"
+            ]
+        },
+        {
+            "value": "Andrews Dining Hall",
+            "synonyms": [
+                "Andrews Dining Hall",
+                "Andrews Dining"
+            ]
+        },
+        {
+            "value": "Sharpe Refactory",
+            "synonyms": [
+                "Sharpe Refactory",
+                "The Sharpe Refactory",
+                "The Ratty"
+            ]
+        },
+        {
+            "value": "Verney Wooley",
+            "synonyms": [
+                "Verney Wooley",
+                "The V Dub",
+                "Vee Dub",
+                "The Vee Dub",
+                "Verney Wooley Dining Hall"
+            ]
+        },
+        {
+            "value": "Olney-Margolies Athletic Center",
+            "synonyms": [
+                "Olney-Margolies Athletic Center",
+                "The Oh Mac",
+                "The OMAC"
+            ]
+        }
+    ]
+}

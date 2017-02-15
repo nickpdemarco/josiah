@@ -1,0 +1,26 @@
+{
+  "id": "SOME_UNIQUE_IDENTIFYING_STRING",
+  "name": "NAME_OF_ENTITY",
+  "isOverridable": true, // unsure what this does, docs provide no info.
+  "entries": [
+    {
+      "value": "SOME_EXAMPLE_OF_AN_ENTITY",
+      "synonyms": [
+        "SYNONYM_1_FOR_FIRST_VALUE",
+        "SYNONYM_2_FOR_FIRST_VALUE"
+      ]
+    },
+    {
+      "value": "SOME_OTHER_EXAMPLE_OF_AN_ENTITY",
+      "synonyms": [
+        "SYNONYM_1_FOR_SECOND_VALUE",
+        "SYNONYM_2_FOR_SECOND_VALUE"
+      ]
+    }
+  ],
+  "isEnum": false, // Represents if this class is an enum
+  
+  // If the below is true, then api.ai will expand our examples 
+  // when it finds likely entity entries that we haven't given explicitly.
+  "automatedExpansion": false 
+}

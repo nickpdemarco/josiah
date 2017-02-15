@@ -1,0 +1,26 @@
+
+{
+    "name" : "professors",
+    "entries": 
+    [
+        {
+            "value": "Thomas W. Doeppner",
+            "synonyms": [
+                "Thomas W. Doeppner",
+                "Tom Doeppner",
+                "Twid",
+                "Professor Doeppner"
+            ]
+        },
+        {
+            "value": "Ravi Pendse",
+            "synonyms": [
+                "Ravi Pendse",
+                "Dr. P",
+                "Doctor P",
+                "Professor Pendse"
+            ]
+        }
+    ]
+}
+

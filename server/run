@@ -1,0 +1,22 @@
+#!/bin/sh
+
+TARGET=$(ls target/*.jar 2>/dev/null)
+if [ -z "$TARGET" ]; then
+    echo "No jar file in target/, try 'mvn package'".
+    exit 1
+fi
+
+if [ ! .mvn-classpath -nt pom.xml ]; then
+  mvn dependency:build-classpath -Dmdep.outputFile=.mvn-classpath -q
+fi
+
+CP=$(cat .mvn-classpath)
+
+PROJECT="josiah"
+
+MAIN=$(ls src/main/java/edu/brown/cs/ndemarco/$PROJECT/Main.java)
+[ -z "$MAIN" ] && echo "You need a Main.java" && exit 1
+[ ! -e "$MAIN" ] && echo "You can only have one Main.java" && exit 1
+PKG=$(basename $(dirname $(dirname $MAIN)))
+
+java -ea -cp $TARGET:$CP edu.brown.cs.$PKG.$PROJECT.Main "$@"

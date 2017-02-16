@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+ 
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.brown.cs</groupId>
+  <artifactId>josiah</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+ 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+<dependencies>
+
+<!-- For option-parser -->
+  <dependency>
+    <groupId>net.sf.jopt-simple</groupId>
+    <artifactId>jopt-simple</artifactId>
+    <version>4.8</version>
+  </dependency>
+
+<!-- For CSV readers -->
+	<dependency>
+		<groupId>net.sf.opencsv</groupId>
+		<artifactId>opencsv</artifactId>
+		<version>2.0</version>
+	</dependency>
+
+<!-- For testing : junit -->
+	<dependency>
+		<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+	</dependency>
+
+<!-- Because I love guava -->
+  <dependency>
+    <groupId>com.google.guava</groupId>
+    <artifactId>guava</artifactId>
+    <version>19.0</version>
+  </dependency>
+
+<!-- For JSON parsing -->
+  <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.3.1</version>
+  </dependency>
+
+<!-- For webserver -->
+  <dependency>
+    <groupId>com.sparkjava</groupId>
+    <artifactId>spark-core</artifactId>
+    <version>2.0.0</version>
+  </dependency>
+
+  <dependency>
+    <groupId>com.sparkjava</groupId>
+    <artifactId>spark-template-freemarker</artifactId>
+    <version>2.0.0</version>
+  </dependency>
+
+</dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <compilerArgument>-Xlint:all</compilerArgument>
+        </configuration>
+      </plugin>
+
+      <!-- Tell checkstyle plugin to use Checkstyle 6.1, for Java 8 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.13</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>6.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+
+    </plugins>
+  </reporting>
+</project>

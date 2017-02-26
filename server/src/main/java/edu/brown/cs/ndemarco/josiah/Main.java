@@ -1,12 +1,17 @@
 package edu.brown.cs.ndemarco.josiah;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Spark;
 
-
 public abstract class Main {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
 
   public static void main(String[] args) {
     runSparkServer();
@@ -25,12 +30,9 @@ public abstract class Main {
 
     @Override
     public Object handle(Request request, Response response) {
+      LOGGER.info(String.format("REQUEST: %s", request.body().replaceAll("\\s", "")));
 
       response.type("application/json");
-      System.out.println(request.headers());
-      System.out.println("-----=====-----");
-      System.out.println(request.body());
-
       return Constants.GSON.toJson(Simple.fulfillment("Hello, world!"));
     }
 

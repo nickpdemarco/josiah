@@ -27,6 +27,10 @@ public abstract class Main {
     public Object handle(Request request, Response response) {
 
       response.type("application/json");
+      System.out.println(request.headers());
+      System.out.println("-----=====-----");
+      System.out.println(request.body());
+
       return Constants.GSON.toJson(Simple.fulfillment("Hello, world!"));
     }
 

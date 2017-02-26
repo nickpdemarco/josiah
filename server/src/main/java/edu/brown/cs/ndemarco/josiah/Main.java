@@ -26,7 +26,9 @@ public abstract class Main {
     @Override
     public Object handle(Request request, Response response) {
 
+      response.type("application/json");
       return "{ \"speech\": \"Hello, world\",\"displayText\": \"Hello, world\", \"data\": [], \"contextOut\": [],\"source\": \"\" }";
+
 
 //      try {
 //

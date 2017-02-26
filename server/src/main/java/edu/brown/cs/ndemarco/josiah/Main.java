@@ -1,7 +1,5 @@
 package edu.brown.cs.ndemarco.josiah;
 
-import com.google.gson.JsonSyntaxException;
-
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -27,19 +25,22 @@ public abstract class Main {
 
     @Override
     public Object handle(Request request, Response response) {
-      try {
 
-        JosiahAIRequest req = JosiahAIRequest.fromSparkRequest(request);
-        JosiahAIResponse resp = JosiahAIResponse.simple(
-            String.format("You said: %s", req.result().getResolvedQuery()));
-        return resp.toJson();
+      return "{ \"speech\": \"Hello, world\",\"displayText\": \"Hello, world\", \"data\": [], \"contextOut\": [],\"source\": \"\" }";
 
-      } catch (JsonSyntaxException e) {
-        return JosiahAIResponse.error(
-            String.format("Error parsing json: %s", e.getCause()),
-            Constants.STATUS_CODE_JOSIAH_ERROR)
-            .toJson();
-      }
+//      try {
+//
+//        JosiahAIRequest req = JosiahAIRequest.fromSparkRequest(request);
+//        JosiahAIResponse resp = JosiahAIResponse.simple(
+//            String.format("You said: %s", req.result().getResolvedQuery()));
+//        return resp.toJson();
+//
+//      } catch (JsonSyntaxException e) {
+//        return JosiahAIResponse.error(
+//            String.format("Error parsing json: %s", e.getCause()),
+//            Constants.STATUS_CODE_JOSIAH_ERROR)
+//            .toJson();
+//      }
     }
 
 

@@ -27,22 +27,7 @@ public abstract class Main {
     public Object handle(Request request, Response response) {
 
       response.type("application/json");
-      return "{ \"speech\": \"Hello, world\",\"displayText\": \"Hello, world\", \"data\": [], \"contextOut\": [],\"source\": \"\" }";
-
-
-//      try {
-//
-//        JosiahAIRequest req = JosiahAIRequest.fromSparkRequest(request);
-//        JosiahAIResponse resp = JosiahAIResponse.simple(
-//            String.format("You said: %s", req.result().getResolvedQuery()));
-//        return resp.toJson();
-//
-//      } catch (JsonSyntaxException e) {
-//        return JosiahAIResponse.error(
-//            String.format("Error parsing json: %s", e.getCause()),
-//            Constants.STATUS_CODE_JOSIAH_ERROR)
-//            .toJson();
-//      }
+      return Constants.GSON.toJson(Simple.fulfillment("Hello, world!"));
     }
 
 

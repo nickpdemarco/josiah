@@ -1,14 +1,12 @@
 package edu.brown.cs.ndemarco.josiah;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Spark;
+
 
 public abstract class Main {
 
@@ -18,24 +16,30 @@ public abstract class Main {
 
 
   private static void runSparkServer() {
-    Spark.post("/hello", new HelloHandler());
+    Spark.post("/echo", new EchoHandler());
   }
 
 
-  private static class HelloHandler implements Route {
+  private static class EchoHandler implements Route {
 
-    private final Gson gson;
-    private final Map<String, String> resp;
+    public EchoHandler() {}
 
-    public HelloHandler() {
-      gson = new Gson();
-      resp = new HashMap<>();
-      resp.put("Hello", "world");
-    }
 
     @Override
     public Object handle(Request request, Response response) {
-      return gson.toJson(resp);
+      try {
+
+        JosiahAIRequest req = JosiahAIRequest.fromSparkRequest(request);
+        JosiahAIResponse resp = JosiahAIResponse.simple(
+            String.format("You said: %s", req.result().getResolvedQuery()));
+        return resp.toJson();
+
+      } catch (JsonSyntaxException e) {
+        return JosiahAIResponse.error(
+            String.format("Error parsing json: %s", e.getCause()),
+            Constants.STATUS_CODE_JOSIAH_ERROR)
+            .toJson();
+      }
     }
 
 

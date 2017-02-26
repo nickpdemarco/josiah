@@ -43,6 +43,7 @@ public class JosiahAIResponse extends AIResponse {
 
     resp.fulfillment = new Fulfillment();
     resp.fulfillment.setSpeech(message);
+    resp.fulfillment.setDisplayText(message);
 
     return resp;
   }

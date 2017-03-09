@@ -40,6 +40,7 @@ public class MenuProcessor implements QueryProcessor {
 	public JosiahFulfillment process(JosiahQuery query) {
 		String diningHall = query.getResult().getStringParameter("building");
 		String meal = query.getResult().getStringParameter("meal");
+		String date = query.getResult().getStringParameter("date");
 
 		Dining.QueryBuilder dqb = new Dining.QueryBuilder();
 
@@ -52,6 +53,8 @@ public class MenuProcessor implements QueryProcessor {
 		if (meals.containsKey(meal)) {
 			dqb.withMealTime(meals.get(meal));
 		}
+		
+		dqb.withDate(date);
 
 		Response response = dqb.execute();
 		return Simple.fulfillment(speechResponse(response));

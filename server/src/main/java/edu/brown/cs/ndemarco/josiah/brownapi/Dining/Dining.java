@@ -3,6 +3,7 @@ package edu.brown.cs.ndemarco.josiah.brownapi.Dining;
 import java.io.IOException;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -172,6 +173,17 @@ public class Dining {
 
 		public QueryBuilder withDate(Date d) {
 			this.date = d;
+			return this;
+		}
+		
+		public QueryBuilder withDate(String dateString) {
+			if (dateString != null) {
+				try {
+					this.date = DATE_FORMAT.parse(dateString);
+				} catch (ParseException e) {
+					System.out.println("ERROR: Parse exception while making date string. Did API.ai change their format?");
+				}
+			}
 			return this;
 		}
 

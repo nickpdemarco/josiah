@@ -24,6 +24,12 @@ public class MenuProcessor implements QueryProcessor {
 	private static final Map<String, DINING_HALL> halls = new HashMap<>();
 	{
 		halls.put("Sharpe Refactory", DINING_HALL.RATTY);
+		halls.put("Verney Wooley", DINING_HALL.VDUB);
+		halls.put("Andrews Dining Hall", DINING_HALL.ANDREWS);
+		halls.put("Blue Room", DINING_HALL.BLUEROOM);
+		halls.put("Josiah's", DINING_HALL.JOS);
+		halls.put("Ivy Room", DINING_HALL.IVYROOM);
+		halls.put("Campus Market", DINING_HALL.CAMPUS_MARKET);
 	}
 
 	private static final Map<String, MEAL_TIME> meals = new HashMap<>();
@@ -42,6 +48,8 @@ public class MenuProcessor implements QueryProcessor {
 
 		if (halls.containsKey(diningHall)) {
 			dqb.withDiningHall(halls.get(diningHall));
+		} else {
+			return Simple.fulfillment(String.format("It looks like %s doesn't sell food.", diningHall));
 		}
 
 		if (meals.containsKey(meal)) {

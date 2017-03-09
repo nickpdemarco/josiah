@@ -177,7 +177,7 @@ public class Dining {
 		}
 		
 		public QueryBuilder withDate(String dateString) {
-			if (dateString != null) {
+			if (dateString != null && !dateString.equals("")) {
 				try {
 					this.date = DATE_FORMAT.parse(dateString);
 				} catch (ParseException e) {

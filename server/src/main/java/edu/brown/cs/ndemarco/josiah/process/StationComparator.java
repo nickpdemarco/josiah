@@ -54,11 +54,11 @@ public class StationComparator implements Comparator<Station>{
 		ranks.put(Station.withId("12487"), rank++); // dessert
 
 		// Blue Room
-		ranks.put(Station.withId("12424"), rank++); // kabob & curry
-		ranks.put(Station.withId("12422"), rank++); // deli sandwich
+		ranks.put(Station.withId("12348"), rank++); // soup
 		ranks.put(Station.withId("12347"), rank++); // bakery
 		ranks.put(Station.withId("12433"), rank++); // frittata & bfast sandwich bar
-		ranks.put(Station.withId("12348"), rank++); // soup
+		ranks.put(Station.withId("12424"), rank++); // kabob & curry
+		ranks.put(Station.withId("12422"), rank++); // deli sandwich
 		ranks.put(Station.withId("12421"), rank++); // focaccia bar
 		
 		

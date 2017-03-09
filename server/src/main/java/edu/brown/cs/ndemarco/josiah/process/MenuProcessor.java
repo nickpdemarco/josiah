@@ -98,7 +98,6 @@ public class MenuProcessor implements QueryProcessor {
 			}
 			itemsForStation.get(itemsForStation.size() - 1).add(currItem.getLabel());
 		}
-		System.out.println(itemsForStation.size());
 		return itemsForStation;
 	}
 	

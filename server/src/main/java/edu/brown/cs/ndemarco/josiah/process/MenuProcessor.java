@@ -5,9 +5,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
@@ -15,8 +12,8 @@ import edu.brown.cs.ndemarco.josiah.Simple;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.DINING_HALL;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Dining;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.MEAL_TIME;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.StationComparator;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Dining.Item;
+import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Item;
+import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Response;
 
 public class MenuProcessor implements QueryProcessor {
 
@@ -56,12 +53,12 @@ public class MenuProcessor implements QueryProcessor {
 			dqb.withMealTime(meals.get(meal));
 		}
 
-		Dining.Response response = dqb.execute();
+		Response response = dqb.execute();
 		return Simple.fulfillment(speechResponse(response));
 	}
 	
-	private String speechResponse(Dining.Response response) {
-		List<Dining.Item> items = new ArrayList<>(response.items().values());
+	private String speechResponse(Response response) {
+		List<Item> items = new ArrayList<>(response.items().values());
 		items.sort(new ItemSorterByStation());
 		StringBuilder sb = new StringBuilder();
 		
@@ -80,34 +77,34 @@ public class MenuProcessor implements QueryProcessor {
 		}
 		return sb.toString().trim(); // Remove that last trailing space.
 	}
-	private List<List<String>> itemsForStation(List<Dining.Item> items) {
+	private List<List<String>> itemsForStation(List<Item> items) {
 		List<List<String>> itemsForStation = new ArrayList<>();
 		if (items.isEmpty()) {
 			return itemsForStation;
 		}
 		
-		Dining.Item lastItem = items.get(0);
+		Item lastItem = items.get(0);
 		itemsForStation.add(new ArrayList<>());
-		itemsForStation.get(0).add(lastItem.getLabel());
+		itemsForStation.get(0).add(lastItem.label());
 		
 		for (int i = 1; i < items.size(); i++) {
-			Dining.Item currItem = items.get(i);
-			if (!currItem.getStation().equals(lastItem.getStation())) {
+			Item currItem = items.get(i);
+			if (!currItem.station().equals(lastItem.station())) {
 				itemsForStation.add(new ArrayList<>());
 				lastItem = currItem;
 			}
-			itemsForStation.get(itemsForStation.size() - 1).add(currItem.getLabel());
+			itemsForStation.get(itemsForStation.size() - 1).add(currItem.label());
 		}
 		return itemsForStation;
 	}
 	
-	private class ItemSorterByStation implements Comparator<Dining.Item> {
+	private class ItemSorterByStation implements Comparator<Item> {
 
 		StationComparator sc = new StationComparator();
 		
 		@Override
-		public int compare(Item o1, Item o2) {
-			return sc.compare(o1.getStation(), o2.getStation());
+		public int compare(edu.brown.cs.ndemarco.josiah.brownapi.Dining.Item o1, Item o2) {
+			return sc.compare(o1.station(), o2.station());
 		}	
 	}	
 }

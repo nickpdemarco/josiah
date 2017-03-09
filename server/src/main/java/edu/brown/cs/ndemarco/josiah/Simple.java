@@ -2,7 +2,6 @@ package edu.brown.cs.ndemarco.josiah;
 
 import java.util.Collections;
 
-import ai.api.model.Fulfillment;
 
 public class Simple {
 

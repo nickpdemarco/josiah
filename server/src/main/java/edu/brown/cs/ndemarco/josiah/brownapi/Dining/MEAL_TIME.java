@@ -7,7 +7,7 @@ public enum MEAL_TIME {
 	DINNER(4),
 	DESSERT(5), // unclear how the API represents this. TODO figure it out. id of 6 also appears to return desserts. Don't recommend using it.
 	// UNKNOWN(6), // This option appears to return unusual results. Sometimes dessert. 
-	LATENITE(7);
+	LATENITE(7); // In the API as "Late Night"
 	
 	private int id;
 	

@@ -69,6 +69,15 @@ public class MenuProcessor implements QueryProcessor {
 		
 		dqb.withDate(date);
 		Response response = dqb.execute();
+		
+		if (response.failed()) {
+			Exception e = response.error().exception();
+			String userFriendlyReason = response.error().userFriendlyReason();
+			System.out.format("ERROR: %s :: %s", (e == null) ? "No exception" : e.getMessage(), userFriendlyReason);
+			
+			return Simple.fulfillment(userFriendlyReason);
+		}
+		
 		return Simple.fulfillment(speechResponse(response));
 	}
 	

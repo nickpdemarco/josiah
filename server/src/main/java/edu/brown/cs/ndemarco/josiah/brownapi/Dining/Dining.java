@@ -22,6 +22,8 @@ import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import edu.brown.cs.ndemarco.josiah.apiaiUtil.ApiAiDate;
+import edu.brown.cs.ndemarco.josiah.brownapi.SimpleError;
+import edu.brown.cs.ndemarco.josiah.brownapi.UserFriendly;
 
 
 public class Dining {
@@ -37,6 +39,8 @@ public class Dining {
 	private static final String DATE_PARAMETER = "date";
 	private static final String ITEM_PARAMETER = "item";
 	private static final String DAYPART_PARAMETER = "daypart";
+	
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd");
 	
 
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -84,9 +88,11 @@ public class Dining {
 			// Parse the response
 		    response = request.execute().parseAs(Response.class);
 		} catch (IOException e) {
-			// TODO update this
-			e.printStackTrace();
-			return Response.emptyResponse();
+			response.fail(new SimpleError.Builder()
+					.withException(e)
+					.withUserFriendlyReason(UserFriendly.OTHER_SERVICE_FAILED)
+					.build());
+			return response;
 		}
 		
 		for (Station station : response.stations()) {
@@ -127,7 +133,7 @@ public class Dining {
 		GenericUrl diningUrl = new GenericUrl(MENUS_ENDPOINT);
 		diningUrl.set(CAFE_ID_PARAMETER, diningHall.getId());
 		if (date != null) {
-			diningUrl.set(DATE_PARAMETER, date);
+			diningUrl.set(DATE_PARAMETER, DATE_FORMAT.format(date));
 		}
 		
 		if (mealTimes != null) {

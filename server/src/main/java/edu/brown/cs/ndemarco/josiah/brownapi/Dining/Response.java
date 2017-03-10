@@ -15,6 +15,8 @@ public class Response {
 	@Key
 	private Map<String, Item> items;
 
+	public static Response emptyResponse() { return new Response(); }
+	
 	public Response() {
 		items = Collections.emptyMap();
 	}
@@ -28,7 +30,7 @@ public class Response {
 	public Map<String, Item> items() { return items; }
 	
 	public List<Station> stations(){
-		Set<Station> stations = new HashSet<>();
+		List<Station> stations = new ArrayList<>();
 		// The hyper-nested loop! Don't be scared - because this is only
 		// iterating over the deserialized json object, it may look gross,
 		// but is actually fairly quick. 
@@ -44,9 +46,6 @@ public class Response {
 				}
 			}
 		}
-		return new ArrayList<>(stations);
+		return stations;
 	}
-	
-
-	public static Response emptyResponse() { return new Response(); }
 }

@@ -19,15 +19,15 @@ public class StationComparator implements Comparator<Station>{
 		ranks.put(Station.withId("12176"), rank++); // comforts
 		ranks.put(Station.withId("12177"), rank++); // roots and shoots
 		ranks.put(Station.withId("12175"), rank++); // kettles
-		ranks.put(Station.withId("12278"), rank++); // sweets
+		ranks.put(Station.withId("12305"), rank++); // pizza
 		ranks.put(Station.withId("13506"), rank++); // omelet bar
 		ranks.put(Station.withId("12179"), rank++); // pasta
 		ranks.put(Station.withId("12174"), rank++); // salad bar
-		ranks.put(Station.withId("12305"), rank++); // pizza
 		ranks.put(Station.withId("12178"), rank++); // from the grill
 		ranks.put(Station.withId("12174"), rank++); // deli
 		ranks.put(Station.withId("12315"), rank++); // roots & shoots bar
 		ranks.put(Station.withId("12520"), rank++); // breakfast for lunch
+		ranks.put(Station.withId("12278"), rank++); // sweets
 		
 		// V DUB
 		ranks.put(Station.withId("12368"), rank++); // hot breakfast bar

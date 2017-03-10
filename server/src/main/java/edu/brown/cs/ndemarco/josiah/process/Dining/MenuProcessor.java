@@ -43,7 +43,10 @@ public class MenuProcessor implements QueryProcessor {
 		
 		// Blue Room
 		Station.assignOverride("12422", "Custom sandwiches.");
-		Station.assignOverride("12433", "Frittata sandwiches.");
+		Station.assignOverride("12433", "Frittata breakfast sandwiches.");
+		Station.assignOverride("12421", "Focaccia sandwiches.");
+		Station.assignOverride("12174", "Fresh salad bar.");
+		
 	}
 
 	@Override

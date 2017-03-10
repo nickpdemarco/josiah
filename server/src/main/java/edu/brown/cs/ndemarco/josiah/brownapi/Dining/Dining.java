@@ -21,6 +21,8 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import edu.brown.cs.ndemarco.josiah.apiaiUtil.ApiAiDate;
+
 
 public class Dining {
 
@@ -35,7 +37,7 @@ public class Dining {
 	private static final String DATE_PARAMETER = "date";
 	private static final String ITEM_PARAMETER = "item";
 	private static final String DAYPART_PARAMETER = "daypart";
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd");
+	
 
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -125,7 +127,7 @@ public class Dining {
 		GenericUrl diningUrl = new GenericUrl(MENUS_ENDPOINT);
 		diningUrl.set(CAFE_ID_PARAMETER, diningHall.getId());
 		if (date != null) {
-			diningUrl.set(DATE_PARAMETER, DATE_FORMAT.format(date));
+			diningUrl.set(DATE_PARAMETER, date);
 		}
 		
 		if (mealTimes != null) {
@@ -164,11 +166,7 @@ public class Dining {
 		
 		public QueryBuilder withDate(String dateString) {
 			if (dateString != null && !dateString.equals("")) {
-				try {
-					this.date = DATE_FORMAT.parse(dateString);
-				} catch (ParseException e) {
-					System.out.println("ERROR: Parse exception while making date string. Did API.ai change their format?");
-				}
+				this.date = ApiAiDate.parse(dateString);
 			}
 			return this;
 		}

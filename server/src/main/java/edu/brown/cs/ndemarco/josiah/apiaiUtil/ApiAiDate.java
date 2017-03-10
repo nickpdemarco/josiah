@@ -3,6 +3,7 @@ package edu.brown.cs.ndemarco.josiah.apiaiUtil;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class ApiAiDate {
 		Date generate(String string);
 	}
 	
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd");
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private static Map<String, Rule> rules = new HashMap<>();
 	static {

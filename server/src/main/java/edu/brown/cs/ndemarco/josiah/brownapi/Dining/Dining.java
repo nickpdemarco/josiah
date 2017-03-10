@@ -40,7 +40,7 @@ public class Dining {
 	private static final String ITEM_PARAMETER = "item";
 	private static final String DAYPART_PARAMETER = "daypart";
 	
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd");
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	
 
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -84,6 +84,7 @@ public class Dining {
 		
 		try {
 			// Make the request
+			System.out.println(diningUrl.get("date"));
 			HttpRequest request = requestFactory.buildGetRequest(diningUrl);
 			// Parse the response
 		    response = request.execute().parseAs(Response.class);

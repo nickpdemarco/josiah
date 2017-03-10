@@ -1,17 +1,17 @@
 {
-  "id": "3b4dc31e-a48e-4255-9832-73bc50c16778",
-  "timestamp": "2017-03-09T21:40:35.985Z",
+  "id": "95cb8746-9d4d-4a2c-84ea-8d994a70ec82",
+  "timestamp": "2017-03-10T01:57:43.094Z",
   "lang": "en",
   "result": {
     "source": "agent",
-    "resolvedQuery": "what\u0027s being served for lunch at the blue room tomorrow",
+    "resolvedQuery": ".what\u0027s being served at the ratty in two days",
     "speech": "",
     "action": "",
     "actionIncomplete": false,
     "parameters": {
-      "date": "2017-03-10",
-      "meal": "Lunch",
-      "building": "Blue Room"
+      "date": "2017-03-11",
+      "meal": "",
+      "building": "Sharpe Refactory"
     },
     "contexts": [],
     "metadata": {
@@ -29,7 +29,7 @@
         }
       ]
     },
-    "score": 1.0
+    "score": 0.95
   },
   "status": {
     "code": 200,

@@ -2,7 +2,6 @@ package edu.brown.cs.ndemarco.josiah.brownapi.Dining;
 
 import java.io.IOException;
 
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,10 +20,9 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import edu.brown.cs.ndemarco.brownapi.SimpleError;
+import edu.brown.cs.ndemarco.brownapi.UserFriendly;
 import edu.brown.cs.ndemarco.josiah.apiaiUtil.ApiAiDate;
-import edu.brown.cs.ndemarco.josiah.brownapi.SimpleError;
-import edu.brown.cs.ndemarco.josiah.brownapi.UserFriendly;
-
 
 public class Dining {
 
@@ -39,9 +37,8 @@ public class Dining {
 	private static final String DATE_PARAMETER = "date";
 	private static final String ITEM_PARAMETER = "item";
 	private static final String DAYPART_PARAMETER = "daypart";
-	
+
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	
 
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -58,7 +55,7 @@ public class Dining {
 		this.mealTimes = dqb.mealTimes;
 
 	}
-	
+
 	private Response execute() {
 		if (itemId != null && diningHall != null) {
 			throw new IllegalArgumentException(
@@ -68,7 +65,7 @@ public class Dining {
 		if (itemId == null && diningHall == null) {
 			return Response.emptyResponse();
 		}
-		
+
 		// Create the Url with parameters for our request
 		GenericUrl diningUrl = createUrl();
 
@@ -79,34 +76,39 @@ public class Dining {
 				request.setParser(new JsonObjectParser(JSON_FACTORY));
 			}
 		});
-		
+
 		Response response = Response.emptyResponse();
-		
+
 		try {
 			// Make the request
 			System.out.println(diningUrl.get("date"));
 			HttpRequest request = requestFactory.buildGetRequest(diningUrl);
 			// Parse the response
-		    response = request.execute().parseAs(Response.class);
+			response = request.execute().parseAs(Response.class);
 		} catch (IOException e) {
-			response.fail(new SimpleError.Builder()
-					.withException(e)
-					.withUserFriendlyReason(UserFriendly.OTHER_SERVICE_FAILED)
-					.build());
+			response.fail(new SimpleError.Builder().withException(e)
+					.withUserFriendlyReason(UserFriendly.OTHER_SERVICE_FAILED).build());
 			return response;
 		}
 		
+		if (response.stations().isEmpty()) { 
+			response.fail(new SimpleError.Builder()
+					.withUserFriendlyReason("It seems Brown Dining hasn't report what's on the menu for that time.")
+					.build());
+			return response;
+		}
+
 		for (Station station : response.stations()) {
 			for (String itemId : station.itemIds()) {
 				// We need to manually set references to stations
-				// for each item. 
+				// for each item.
 				response.items().get(itemId).station(station);
 				// Also, since stations only get item Ids, it's nice
 				// to have hard references to these objects in memory
 				station.addItem(response.items().get(itemId));
 			}
 		}
-		
+
 		// Clean up the labels for stations
 		for (Map.Entry<String, Item> entry : response.items().entrySet()) {
 			String label = entry.getValue().station().label();
@@ -116,10 +118,10 @@ public class Dining {
 		}
 		return response;
 	}
-	
+
 	private GenericUrl createUrl() {
 		GenericUrl diningUrl;
-		
+
 		if (diningHall != null) {
 			diningUrl = menuUrl();
 		} else { // itemId != null
@@ -129,14 +131,14 @@ public class Dining {
 		diningUrl.set("format", "json");
 		return diningUrl;
 	}
-	
+
 	private GenericUrl menuUrl() {
 		GenericUrl diningUrl = new GenericUrl(MENUS_ENDPOINT);
 		diningUrl.set(CAFE_ID_PARAMETER, diningHall.getId());
 		if (date != null) {
 			diningUrl.set(DATE_PARAMETER, DATE_FORMAT.format(date));
 		}
-		
+
 		if (mealTimes != null) {
 			StringBuilder sb = new StringBuilder();
 			for (MEAL_TIME mt : mealTimes) {
@@ -146,13 +148,13 @@ public class Dining {
 		}
 		return diningUrl;
 	}
-	
+
 	private GenericUrl itemUrl() {
 		GenericUrl diningUrl = new GenericUrl(ITEMS_ENDPOINT);
 		diningUrl.set(ITEM_PARAMETER, itemId);
 		return diningUrl;
 	}
-	
+
 	// MARK: Builder
 
 	public static class QueryBuilder {
@@ -170,7 +172,7 @@ public class Dining {
 			this.date = d;
 			return this;
 		}
-		
+
 		public QueryBuilder withDate(String dateString) {
 			if (dateString != null && !dateString.equals("")) {
 				this.date = ApiAiDate.parse(dateString);
@@ -182,7 +184,7 @@ public class Dining {
 			this.itemId = id;
 			return this;
 		}
-		
+
 		public QueryBuilder withMealTime(MEAL_TIME mt) {
 			if (this.mealTimes == null) {
 				this.mealTimes = new ArrayList<>();
@@ -190,7 +192,7 @@ public class Dining {
 			this.mealTimes.add(mt);
 			return this;
 		}
-		
+
 		public QueryBuilder withMealTimes(List<MEAL_TIME> list) {
 			this.mealTimes = list;
 			return this;

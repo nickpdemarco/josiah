@@ -7,8 +7,8 @@ import java.util.Map;
 
 import com.google.api.client.util.Key;
 
-import edu.brown.cs.ndemarco.josiah.brownapi.Error;
-import edu.brown.cs.ndemarco.josiah.brownapi.Failable;
+import edu.brown.cs.ndemarco.brownapi.Error;
+import edu.brown.cs.ndemarco.brownapi.Failable;
 
 public class Response implements Failable {
 	@Key

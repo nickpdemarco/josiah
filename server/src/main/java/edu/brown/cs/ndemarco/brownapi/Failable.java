@@ -1,4 +1,4 @@
-package edu.brown.cs.ndemarco.josiah.brownapi;
+package edu.brown.cs.ndemarco.brownapi;
 
 public interface Failable {
 	

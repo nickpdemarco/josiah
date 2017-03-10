@@ -10,11 +10,6 @@ public  class Day {
 	@Key
 	private Map<String, CafeSummary> cafes;
 	
-	public String date() {
-		return date;
-	}
-	
-	public Map<String, CafeSummary> cafes() {
-		return cafes;
-	}
+	public String date() { return date; }
+	public Map<String, CafeSummary> cafes() { return cafes; }
 }

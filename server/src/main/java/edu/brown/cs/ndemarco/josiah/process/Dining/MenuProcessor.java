@@ -1,7 +1,7 @@
-package edu.brown.cs.ndemarco.josiah.process;
+package edu.brown.cs.ndemarco.josiah.process.Dining;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,14 +12,15 @@ import edu.brown.cs.ndemarco.josiah.Simple;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.DINING_HALL;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Dining;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.MEAL_TIME;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Item;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Response;
+import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Station;
+import edu.brown.cs.ndemarco.josiah.process.QueryProcessor;
 
 public class MenuProcessor implements QueryProcessor {
 
 	// TODO statically initialize these at compile time by checking a directory
 	private static final Map<String, DINING_HALL> halls = new HashMap<>();
-	{
+	static {
 		halls.put("Sharpe Refactory", DINING_HALL.RATTY);
 		halls.put("Verney Wooley", DINING_HALL.VDUB);
 		halls.put("Andrews Dining Hall", DINING_HALL.ANDREWS);
@@ -30,10 +31,19 @@ public class MenuProcessor implements QueryProcessor {
 	}
 
 	private static final Map<String, MEAL_TIME> meals = new HashMap<>();
-	{
+	static {
 		meals.put("Breakfast", MEAL_TIME.BREAKFAST);
 		meals.put("Lunch", MEAL_TIME.LUNCH);
 		meals.put("Dinner", MEAL_TIME.DINNER);
+	}
+	
+	static {
+		// See comments in Station.java
+		// Be sure to end with periods for good formatting!
+		
+		// Blue Room
+		Station.assignOverride("12422", "Custom sandwiches.");
+		Station.assignOverride("12433", "Frittata sandwiches.");
 	}
 
 	@Override
@@ -55,59 +65,18 @@ public class MenuProcessor implements QueryProcessor {
 		}
 		
 		dqb.withDate(date);
-
 		Response response = dqb.execute();
 		return Simple.fulfillment(speechResponse(response));
 	}
 	
 	private String speechResponse(Response response) {
-		List<Item> items = new ArrayList<>(response.items().values());
-		items.sort(new ItemSorterByStation());
+		List<Station> stations = new ArrayList<>(response.stations());
+		stations.sort(new StationComparator());
 		StringBuilder sb = new StringBuilder();
-		
-		for (List<String> values : itemsForStation(items)) {
-			if (values.isEmpty()) continue;
-			
-			sb.append(values.get(0));
-			for (int i = 1; i < values.size() - 1; i++) {
-				sb.append(String.format(", %s", values.get(i)));
-			}
-			
-			sb.append(
-					(values.size() == 1) ? ". " :
-						String.format(", and %s. ", values.get(values.size() - 1))
-					);
+		for (Station s : stations) {
+			sb.append(String.format("%s ", s.toString()));
 		}
-		return sb.toString().trim(); // Remove that last trailing space.
+		return sb.toString().trim(); // remove the last trailing whitespace.
 	}
-	private List<List<String>> itemsForStation(List<Item> items) {
-		List<List<String>> itemsForStation = new ArrayList<>();
-		if (items.isEmpty()) {
-			return itemsForStation;
-		}
-		
-		Item lastItem = items.get(0);
-		itemsForStation.add(new ArrayList<>());
-		itemsForStation.get(0).add(lastItem.label());
-		
-		for (int i = 1; i < items.size(); i++) {
-			Item currItem = items.get(i);
-			if (!currItem.station().equals(lastItem.station())) {
-				itemsForStation.add(new ArrayList<>());
-				lastItem = currItem;
-			}
-			itemsForStation.get(itemsForStation.size() - 1).add(currItem.label());
-		}
-		return itemsForStation;
-	}
-	
-	private class ItemSorterByStation implements Comparator<Item> {
 
-		StationComparator sc = new StationComparator();
-		
-		@Override
-		public int compare(edu.brown.cs.ndemarco.josiah.brownapi.Dining.Item o1, Item o2) {
-			return sc.compare(o1.station(), o2.station());
-		}	
-	}	
 }

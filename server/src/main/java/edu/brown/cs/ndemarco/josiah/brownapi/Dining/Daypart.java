@@ -17,19 +17,8 @@ public class Daypart {
 	@Key
 	private List<Station> stations;
 	
-	public String label() {
-		return label;
-	}
-	
-	public String startTime() {
-		return starttime;
-	}
-	
-	public String endTime() {
-		return endtime;
-	}
-	
-	public List<Station> stations() {
-		return stations;
-	}
+	public String label() { return label; }
+	public String startTime() { return starttime; }
+	public String endTime() { return endtime; }
+	public List<Station> stations() { return stations; }
 }

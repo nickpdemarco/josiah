@@ -3,6 +3,7 @@ package edu.brown.cs.ndemarco.josiah.process;
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
 import edu.brown.cs.ndemarco.josiah.Simple;
+import edu.brown.cs.ndemarco.josiah.process.Dining.MenuProcessor;
 
 public class QueryDelegator implements QueryProcessor {
 

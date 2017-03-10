@@ -2,6 +2,7 @@ package edu.brown.cs.ndemarco.josiah.brownapi.Dining;
 
 import java.io.IOException;
 
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import org.jsoup.Jsoup;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
@@ -87,38 +86,25 @@ public class Dining {
 			e.printStackTrace();
 			return Response.emptyResponse();
 		}
-				
-		// The hyper-nested loop! Don't be scared - because this is only
-		// iterating over the deserialized json object, it may look gross,
-		// but is actually fairly quick. 
-		// Most of these fields have one element in them for basic queries.
-		for (Day day : response.days()) {
-			for (CafeSummary cafesummary : day.cafes().values()) {
-				for (List<Daypart> daypartList : cafesummary.dayparts()) {
-					for (Daypart daypart : daypartList) {
-						for (Station station : daypart.stations()) {
-							for (String itemId : station.items()) {
-								// We need to manually set references to stations
-								// for each item.
-								response.items().get(itemId).station(station);
-							}
-						}
-					}
-				}
-			}
-		}		
 		
-		// Strip some HTML tags from the output.
-		for (Map.Entry<String, Item> entry : response.items().entrySet()) {
-			String label = entry.getValue().station().label();
-			label = Jsoup.parse(label).text();
-			// Also remove the '@' reference tags provided by the API.
-			if (label.length() > 0 && label.charAt(0) == '@') {
-				label = label.substring(1, label.length());
+		for (Station station : response.stations()) {
+			for (String itemId : station.itemIds()) {
+				// We need to manually set references to stations
+				// for each item. 
+				response.items().get(itemId).station(station);
+				// Also, since stations only get item Ids, it's nice
+				// to have hard references to these objects in memory
+				station.addItem(response.items().get(itemId));
 			}
-			entry.getValue().station().label(label);
 		}
 		
+		// Clean up the labels for stations
+		for (Map.Entry<String, Item> entry : response.items().entrySet()) {
+			String label = entry.getValue().station().label();
+			label = Clean.removeHtmlTags(label);
+			label = Clean.removeLeadingAtSign(label);
+			entry.getValue().station().label(label);
+		}
 		return response;
 	}
 	

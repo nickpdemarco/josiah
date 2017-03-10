@@ -1,4 +1,4 @@
-package edu.brown.cs.ndemarco.josiah.process;
+package edu.brown.cs.ndemarco.josiah.process.Dining;
 
 import java.util.Comparator;
 import java.util.HashMap;

@@ -11,11 +11,6 @@ public class CafeSummary {
 	@Key
 	private List<List<Daypart>> dayparts;
 	
-	public String name() {
-		return name;
-	}
-	
-	public List<List<Daypart>> dayparts () {
-		return dayparts;
-	}
+	public String name() { return name; }
+	public List<List<Daypart>> dayparts () { return dayparts; }
 }

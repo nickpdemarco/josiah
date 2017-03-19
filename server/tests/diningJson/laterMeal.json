@@ -1,0 +1,39 @@
+{
+  "id": "3b4dc31e-a48e-4255-9832-73bc50c16778",
+  "timestamp": "2017-03-09T21:40:35.985Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "what\u0027s being served for breakfast at the ratty tomorrow",
+    "speech": "",
+    "action": "",
+    "actionIncomplete": false,
+    "parameters": {
+      "date": "2017-03-10",
+      "meal": "Breakfast",
+      "building": "Sharpe Refactory"
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "b768ea37-fa19-452e-be45-4dd4b8a5dafc",
+      "webhookUsed": "true",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "menu"
+    },
+    "fulfillment": {
+      "speech": "",
+      "messages": [
+        {
+          "type": 0,
+          "speech": ""
+        }
+      ]
+    },
+    "score": 1.0
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "d83ef2bb-21fa-412d-b203-8556e7bf85f7"
+}

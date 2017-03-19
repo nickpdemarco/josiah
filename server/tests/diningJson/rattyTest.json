@@ -1,0 +1,39 @@
+{
+  "id": "95cb8746-9d4d-4a2c-84ea-8d994a70ec82",
+  "timestamp": "2017-03-10T01:57:43.094Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": ".what\u0027s being served at the ratty in two days",
+    "speech": "",
+    "action": "",
+    "actionIncomplete": false,
+    "parameters": {
+      "date": "2017-03-11",
+      "meal": "",
+      "building": "Sharpe Refactory"
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "b768ea37-fa19-452e-be45-4dd4b8a5dafc",
+      "webhookUsed": "true",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "menu"
+    },
+    "fulfillment": {
+      "speech": "",
+      "messages": [
+        {
+          "type": 0,
+          "speech": ""
+        }
+      ]
+    },
+    "score": 0.95
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "d83ef2bb-21fa-412d-b203-8556e7bf85f7"
+}

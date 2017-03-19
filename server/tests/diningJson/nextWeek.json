@@ -1,0 +1,39 @@
+{
+  "id": "5edc5ef2-3e12-4695-94ee-9009a41a3a3a",
+  "timestamp": "2017-03-10T16:20:54.35Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "what\u0027s at the blue room next week for lunch",
+    "speech": "",
+    "action": "",
+    "actionIncomplete": false,
+    "parameters": {
+      "date": "next week",
+      "meal": "Lunch",
+      "building": "Blue Room"
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "b768ea37-fa19-452e-be45-4dd4b8a5dafc",
+      "webhookUsed": "true",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "menu"
+    },
+    "fulfillment": {
+      "speech": "",
+      "messages": [
+        {
+          "type": 0,
+          "speech": ""
+        }
+      ]
+    },
+    "score": 1.0
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "d83ef2bb-21fa-412d-b203-8556e7bf85f7"
+}

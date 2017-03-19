@@ -10,7 +10,9 @@ public class Constants {
   public static final int STATUS_CODE_JOSIAH_ERROR = 100;
   public static final int STATUS_CODE_SUCCESS = 200;
 
+  public static final String RESPONSE_HEADER_TYPE = "application/json";
+  
   public static final Gson GSON = GsonFactory.getDefaultFactory().getGson();
-
-
+  
+  
 }

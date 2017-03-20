@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import edu.brown.cs.ndemarco.josiah.process.Dining.MenuProcessor;
+import edu.brown.cs.ndemarco.josiah.Dining.MenuProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;

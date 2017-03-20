@@ -1,4 +1,4 @@
-package edu.brown.cs.ndemarco.josiah.process.Dining;
+package edu.brown.cs.ndemarco.josiah.Dining;
 
 import java.util.ArrayList;
 
@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.brown.cs.ndemarco.brownapi.Dining.DINING_HALL;
+import edu.brown.cs.ndemarco.brownapi.Dining.Dining;
+import edu.brown.cs.ndemarco.brownapi.Dining.MEAL_TIME;
+import edu.brown.cs.ndemarco.brownapi.Dining.Response;
+import edu.brown.cs.ndemarco.brownapi.Dining.Station;
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
 import edu.brown.cs.ndemarco.josiah.QueryProcessor;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.DINING_HALL;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Dining;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.MEAL_TIME;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Response;
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Station;
 
 public class MenuProcessor implements QueryProcessor {
 

@@ -1,4 +1,4 @@
-package edu.brown.cs.ndemarco.josiah.brownapi.Dining;
+package edu.brown.cs.ndemarco.brownapi.Dining;
 
 public enum MEAL_TIME {
 	BREAKFAST(1),

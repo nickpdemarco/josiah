@@ -1,4 +1,4 @@
-package edu.brown.cs.ndemarco.josiah.process.Dining;
+package edu.brown.cs.ndemarco.josiah.Dining;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Station;
+import edu.brown.cs.ndemarco.brownapi.Dining.Station;
 
 public class StationComparator implements Comparator<Station>{
 	

@@ -1,4 +1,4 @@
-package edu.brown.cs.ndemarco.josiah.brownapi.Dining;
+package edu.brown.cs.ndemarco.brownapi.Dining;
 
 import java.io.IOException;
 

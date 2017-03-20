@@ -81,7 +81,6 @@ public class Dining {
 
 		try {
 			// Make the request
-			System.out.println(diningUrl.get("date"));
 			HttpRequest request = requestFactory.buildGetRequest(diningUrl);
 			// Parse the response
 			response = request.execute().parseAs(Response.class);

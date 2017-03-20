@@ -8,13 +8,12 @@ import java.util.Map;
 
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
-import edu.brown.cs.ndemarco.josiah.Simple;
+import edu.brown.cs.ndemarco.josiah.QueryProcessor;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.DINING_HALL;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Dining;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.MEAL_TIME;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Response;
 import edu.brown.cs.ndemarco.josiah.brownapi.Dining.Station;
-import edu.brown.cs.ndemarco.josiah.process.QueryProcessor;
 
 public class MenuProcessor implements QueryProcessor {
 
@@ -36,17 +35,17 @@ public class MenuProcessor implements QueryProcessor {
 		meals.put("Lunch", MEAL_TIME.LUNCH);
 		meals.put("Dinner", MEAL_TIME.DINNER);
 	}
-	
+
 	static {
 		// See comments in Station.java
 		// Be sure to end with periods for good formatting!
-		
+
 		// Blue Room
 		Station.assignOverride("12422", "Custom sandwiches.");
 		Station.assignOverride("12433", "Frittata breakfast sandwiches.");
 		Station.assignOverride("12421", "Focaccia sandwiches.");
 		Station.assignOverride("12174", "Fresh salad bar.");
-		
+
 	}
 
 	@Override
@@ -60,27 +59,27 @@ public class MenuProcessor implements QueryProcessor {
 		if (halls.containsKey(diningHall)) {
 			dqb.withDiningHall(halls.get(diningHall));
 		} else {
-			return Simple.fulfillment(String.format("It looks like %s doesn't sell food.", diningHall));
+			return JosiahFulfillment.simple("It looks like %s doesn't sell food.", diningHall);
 		}
 
 		if (meals.containsKey(meal)) {
 			dqb.withMealTime(meals.get(meal));
 		}
-		
+
 		dqb.withDate(date);
 		Response response = dqb.execute();
-		
+
 		if (response.failed()) {
 			Exception e = response.error().exception();
 			String userFriendlyReason = response.error().userFriendlyReason();
 			System.out.format("ERROR: %s :: %s", (e == null) ? "No exception" : e.getMessage(), userFriendlyReason);
-			
-			return Simple.fulfillment(userFriendlyReason);
+
+			return JosiahFulfillment.simple(userFriendlyReason);
 		}
-		
-		return Simple.fulfillment(speechResponse(response));
+
+		return JosiahFulfillment.simple(speechResponse(response));
 	}
-	
+
 	private String speechResponse(Response response) {
 		List<Station> stations = new ArrayList<>(response.stations());
 		stations.sort(new StationComparator());
@@ -89,6 +88,11 @@ public class MenuProcessor implements QueryProcessor {
 			sb.append(String.format("%s ", s.toString()));
 		}
 		return sb.toString().trim(); // remove the last trailing whitespace.
+	}
+
+	@Override
+	public boolean isResponsibleFor(String intent) {
+		return intent.equals("menu");
 	}
 
 }

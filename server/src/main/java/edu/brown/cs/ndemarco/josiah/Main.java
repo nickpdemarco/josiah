@@ -9,8 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import edu.brown.cs.ndemarco.josiah.process.QueryDelegator;
-import edu.brown.cs.ndemarco.josiah.process.QueryProcessor;
+import edu.brown.cs.ndemarco.josiah.process.Dining.MenuProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -36,19 +35,19 @@ public abstract class Main {
 			LOGGER.info(String.format("REQUEST: %s", request.body().replaceAll("\\s", "")));
 
 			response.type(Constants.RESPONSE_HEADER_TYPE);
-			return Constants.GSON.toJson(Simple.fulfillment("Hello, world!"));
+			return Constants.GSON.toJson(JosiahFulfillment.simple("Hello, world!"));
 		}
 
 	}
 
 	private static class RequestHandler implements Route {
 
-		private QueryProcessor qp;
+		private Josiah josiah;
 		private JsonParser parser = new JsonParser();
 		private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		RequestHandler() {
-			qp = new QueryDelegator();
+			josiah = new Josiah.Builder().withDefaultProcessors(new MenuProcessor()).build();
 		}
 
 		@Override
@@ -58,7 +57,7 @@ public abstract class Main {
 
 			response.type(Constants.RESPONSE_HEADER_TYPE);
 			JosiahQuery userQuery = Constants.GSON.fromJson(request.body(), JosiahQuery.class);
-			JosiahFulfillment fulfilled = qp.process(userQuery);
+			JosiahFulfillment fulfilled = josiah.process(userQuery);
 			return Constants.GSON.toJson(fulfilled);
 
 		}

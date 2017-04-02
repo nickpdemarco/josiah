@@ -3,7 +3,6 @@ package edu.brown.cs.ndemarco.brownapi.Dining;
 import java.io.IOException;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,11 +19,11 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import edu.brown.cs.ndemarco.brownapi.SimpleError;
-import edu.brown.cs.ndemarco.brownapi.UserFriendly;
+import edu.brown.cs.ndemarco.brownapi.UserFriendlyException;
+import edu.brown.cs.ndemarco.josiah.UserFriendly;
 import edu.brown.cs.ndemarco.josiah.apiaiUtil.ApiAiDate;
 
-public class Dining {
+public class Request {
 
 	/**
 	 * URLs for cafebonappetit
@@ -43,12 +42,12 @@ public class Dining {
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
 
-	private DINING_HALL diningHall;
+	private DININGHALL diningHall;
 	private Date date;
 	private String itemId;
-	private List<MEAL_TIME> mealTimes;
+	private List<MEALTIME> mealTimes;
 
-	private Dining(QueryBuilder dqb) {
+	private Request(Builder dqb) {
 		this.diningHall = dqb.diningHall;
 		this.date = dqb.date;
 		this.itemId = dqb.itemId;
@@ -56,7 +55,7 @@ public class Dining {
 
 	}
 
-	private Response execute() {
+	private Response execute() throws UserFriendlyException {
 		if (itemId != null && diningHall != null) {
 			throw new IllegalArgumentException(
 					"Tried to get item and dining hall data in the same request. This is invalid.");
@@ -82,19 +81,14 @@ public class Dining {
 		try {
 			// Make the request
 			HttpRequest request = requestFactory.buildGetRequest(diningUrl);
-			// Parse the response
+			// Execute and parse the response. May throw IOException.
 			response = request.execute().parseAs(Response.class);
 		} catch (IOException e) {
-			response.fail(new SimpleError.Builder().withException(e)
-					.withUserFriendlyReason(UserFriendly.OTHER_SERVICE_FAILED).build());
-			return response;
+			throw new UserFriendlyException(e, UserFriendly.OTHER_SERVICE_FAILED);
 		}
 		
 		if (response.stations().isEmpty()) { 
-			response.fail(new SimpleError.Builder()
-					.withUserFriendlyReason("It seems Brown Dining hasn't report what's on the menu for that time.")
-					.build());
-			return response;
+			throw new UserFriendlyException(null, UserFriendly.EMPTY_DINING_RESPONSE);
 		}
 
 		for (Station station : response.stations()) {
@@ -140,7 +134,7 @@ public class Dining {
 
 		if (mealTimes != null) {
 			StringBuilder sb = new StringBuilder();
-			for (MEAL_TIME mt : mealTimes) {
+			for (MEALTIME mt : mealTimes) {
 				sb.append(String.format("%d,", mt.getId()));
 			}
 			diningUrl.set(DAYPART_PARAMETER, sb.toString());
@@ -156,35 +150,35 @@ public class Dining {
 
 	// MARK: Builder
 
-	public static class QueryBuilder {
-		private DINING_HALL diningHall;
+	public static class Builder {
+		private DININGHALL diningHall;
 		private Date date;
 		private String itemId;
-		private List<MEAL_TIME> mealTimes;
+		private List<MEALTIME> mealTimes;
 
-		public QueryBuilder withDiningHall(DINING_HALL d) {
+		public Builder withDiningHall(DININGHALL d) {
 			this.diningHall = d;
 			return this;
 		}
 
-		public QueryBuilder withDate(Date d) {
+		public Builder withDate(Date d) {
 			this.date = d;
 			return this;
 		}
 
-		public QueryBuilder withDate(String dateString) {
+		public Builder withDate(String dateString) {
 			if (dateString != null && !dateString.equals("")) {
 				this.date = ApiAiDate.parse(dateString);
 			}
 			return this;
 		}
 
-		public QueryBuilder withItemId(String id) {
+		public Builder withItemId(String id) {
 			this.itemId = id;
 			return this;
 		}
 
-		public QueryBuilder withMealTime(MEAL_TIME mt) {
+		public Builder withMealTime(MEALTIME mt) {
 			if (this.mealTimes == null) {
 				this.mealTimes = new ArrayList<>();
 			}
@@ -192,13 +186,13 @@ public class Dining {
 			return this;
 		}
 
-		public QueryBuilder withMealTimes(List<MEAL_TIME> list) {
+		public Builder withMealTimes(List<MEALTIME> list) {
 			this.mealTimes = list;
 			return this;
 		}
 
-		public Response execute() {
-			return new Dining(this).execute();
+		public Response execute() throws UserFriendlyException {
+			return new Request(this).execute();
 		}
 	}
 }

@@ -2,6 +2,12 @@ package edu.brown.cs.ndemarco.brownapi.Dining;
 
 import org.jsoup.Jsoup;
 
+/**
+ * A simple utility class for cleaning up the returned values from the cafebonappetit API.
+ * Not to be used outside of the Dining package.
+ * @author nickpdemarco
+ *
+ */
 class Clean {
 
 	static String removeHtmlTags(String dirty) {

@@ -1,24 +1,19 @@
 package edu.brown.cs.ndemarco.brownapi.Dining;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import com.google.api.client.util.Key;
 
-import edu.brown.cs.ndemarco.brownapi.Error;
-import edu.brown.cs.ndemarco.brownapi.Failable;
-
-public class Response implements Failable {
+public class Response {
 	@Key
 	private List<Day> days;
 	@Key
 	private Map<String, Item> items;
 	
-	// Failable
-	private Error error;
-
 	public static Response emptyResponse() { return new Response(); }
 	
 	public Response() {
@@ -51,21 +46,5 @@ public class Response implements Failable {
 			}
 		}
 		return stations;
-	}
-
-	@Override
-	public void fail(Error e) {
-		this.error = e;
-		
-	}
-
-	@Override
-	public boolean failed() {
-		return error != null;
-	}
-
-	@Override
-	public Error error() {
-		return error;
 	}
 }

@@ -1,5 +1,7 @@
 package edu.brown.cs.ndemarco.brownapi.office;
 
+import java.util.Objects;
+
 public class Authorization {
 
 	// Credentials are immutable.
@@ -38,5 +40,27 @@ public class Authorization {
 		public Authorization build() {
 			return new Authorization(this);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		// For convenience, toString returns in the format that the API expects.
+		return String.format("%s:%s@", username, password);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(username, password);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Authorization)) return false;
+		Authorization test = (Authorization) o;
+		
+		return test.username.equals(username) &&
+				test.password.equals(password);
+		
 	}
 }

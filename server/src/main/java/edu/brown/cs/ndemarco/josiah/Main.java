@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import edu.brown.cs.ndemarco.josiah.Dining.MenuProcessor;
+import edu.brown.cs.ndemarco.josiah.Office.OfficeProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -47,7 +48,10 @@ public abstract class Main {
 		private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		RequestHandler() {
-			josiah = new Josiah.Builder().withDefaultProcessors(new MenuProcessor()).build();
+			josiah = new Josiah.Builder().withDefaultProcessors(
+					new MenuProcessor(),
+					new OfficeProcessor())
+					.build();
 		}
 
 		@Override

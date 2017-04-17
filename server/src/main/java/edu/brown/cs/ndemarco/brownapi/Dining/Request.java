@@ -57,6 +57,7 @@ public class Request {
 
 	private Response execute() throws UserFriendlyException {
 		if (itemId != null && diningHall != null) {
+			// choose not to throw UserFriendly because this should not bubble up to user.
 			throw new IllegalArgumentException(
 					"Tried to get item and dining hall data in the same request. This is invalid.");
 		}
@@ -84,6 +85,7 @@ public class Request {
 			// Execute and parse the response. May throw IOException.
 			response = request.execute().parseAs(Response.class);
 		} catch (IOException e) {
+			// TODO disconnect Josiah functionality (UserFriendly) from the API.
 			throw new UserFriendlyException(e, UserFriendly.OTHER_SERVICE_FAILED);
 		}
 		

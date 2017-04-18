@@ -9,25 +9,27 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 class ResponseStreamDecoder {
-	
+
+	// TODO I don't like that this object has a Gson object, but ResponseAdapter
+	// also does. We could probably combine them.
 	private static final Gson GSON = new GsonBuilder()
 			.registerTypeAdapter(Response.class, new ResponseAdapter())
 			.create();
-	
-	private ResponseStreamDecoder() {}
-	
+
+	private ResponseStreamDecoder() {
+	}
+
 	public static Response decode(HttpResponse response) throws IOException {
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(response.getContent()));
+		BufferedReader br = new BufferedReader(new InputStreamReader(response.getContent()));
 
 		StringBuilder content = new StringBuilder();
 		String line;
 		while (null != (line = br.readLine())) {
-		    content.append(line);
+			content.append(line);
 		}
-		
+
 		return GSON.fromJson(content.toString(), Response.class);
-		
+
 	}
 
 }

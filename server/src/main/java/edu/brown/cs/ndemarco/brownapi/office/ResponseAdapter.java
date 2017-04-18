@@ -8,7 +8,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 public class ResponseAdapter extends TypeAdapter<Response> {
-	
+
 	private static final Gson GSON = new Gson();
 
 	@Override

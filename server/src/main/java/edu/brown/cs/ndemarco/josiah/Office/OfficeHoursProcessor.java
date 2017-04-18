@@ -79,15 +79,11 @@ public class OfficeHoursProcessor implements QueryProcessor {
 						.withUsername(in.next()) // username is first
 						.withPassword(in.next().replace("\n", "")) // password is second.
 						.build();
+				
 			} catch (FileNotFoundException e) {
 				System.out.format("ERROR: NO FILE AT %s\n", filePath);
 				throw new RuntimeException("Authorization file needed for proper execution");
 			}
-			
-			
-			
-			
-
 		}
 	}
 

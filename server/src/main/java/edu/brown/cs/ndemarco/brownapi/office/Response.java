@@ -1,6 +1,7 @@
 package edu.brown.cs.ndemarco.brownapi.office;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,15 +9,8 @@ import com.google.api.client.util.Key;
 
 public class Response {
 	
-	@Key
 	private List<Person> people;
-	
-	@Key
-	private String status;
-	
-	@Key
-	private Data data; 
-	
+	 
 	public static Response emptyResponse() {
 		return new Response();
 	}
@@ -24,19 +18,22 @@ public class Response {
 	public Response() {
 		this.people = new ArrayList<>();
 	}
-	
+		
 	public List<Person> getPeople() {
 		return Collections.unmodifiableList(people);
 	}
 	
-	public boolean failed() {
-		return status != null;
+	// package visible only! Responses should be immutable.
+	void setPeople(List<Person> people) {
+		this.people = people;
 	}
 	
-	public String errorMessage() {
-		return failed() ? data.getDetailedMessage() : ""; 
+	// package visible only! Responses should be immutable.
+	void setPeople(Person[] people) {
+		this.people = Arrays.asList(people);
 	}
-
+	
+	
 	public static class Person {
 		@Key
 		private String department;
@@ -56,16 +53,16 @@ public class Response {
 		public String getDepartment() {
 			return department;
 		}
-		public String getOffice_hours() {
+		public String getOfficeHours() {
 			return office_hours;
 		}
-		public String getFirst_name() {
+		public String getFirstName() {
 			return first_name;
 		}
-		public String getLast_name() {
+		public String getLastName() {
 			return last_name;
 		}
-		public String getBrown_id() {
+		public String getBrownId() {
 			return brown_id;
 		}
 		public String getTitle() {
@@ -76,22 +73,4 @@ public class Response {
 		}
 	}
 	
-	// Data field for error messages
-	private static class Data {
-		@Key
-		private String detailedMessage;
-		
-		@Key
-		private String exceptionCode;
-		
-		public String getDetailedMessage() {
-			return detailedMessage;
-		}
-		
-		@SuppressWarnings("unused")
-		public String getExceptionCode() {
-			return exceptionCode;
-		}
-	}
-
 }

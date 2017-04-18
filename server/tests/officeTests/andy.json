@@ -1,0 +1,37 @@
+{
+  "id": "442c8984-a680-4333-aefc-d69f0b45d2e3",
+  "timestamp": "2017-04-17T21:07:34.445Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "when can I see andy van dam",
+    "speech": "",
+    "action": "",
+    "actionIncomplete": false,
+    "parameters": {
+      "professor": "010029717"
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "e8d264dc-4081-44cd-b027-55306dbe8d0b",
+      "webhookUsed": "true",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "professor_office_hours"
+    },
+    "fulfillment": {
+      "speech": "",
+      "messages": [
+        {
+          "type": 0,
+          "speech": ""
+        }
+      ]
+    },
+    "score": 1.0
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "b85dd2b1-0460-430a-a1bb-8f71e7d5d973"
+}

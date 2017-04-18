@@ -10,7 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import edu.brown.cs.ndemarco.josiah.Dining.MenuProcessor;
-import edu.brown.cs.ndemarco.josiah.Office.OfficeProcessor;
+import edu.brown.cs.ndemarco.josiah.Office.OfficeHoursProcessor;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -50,7 +50,7 @@ public abstract class Main {
 		RequestHandler() {
 			josiah = new Josiah.Builder().withDefaultProcessors(
 					new MenuProcessor(),
-					new OfficeProcessor())
+					new OfficeHoursProcessor())
 					.build();
 		}
 

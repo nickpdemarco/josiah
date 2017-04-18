@@ -45,7 +45,7 @@ public class Authorization {
 	@Override
 	public String toString() {
 		// For convenience, toString returns in the format that the API expects.
-		return String.format("%s:%s@", username, password);
+		return String.format("%s:%s", username, password);
 	}
 	
 	@Override

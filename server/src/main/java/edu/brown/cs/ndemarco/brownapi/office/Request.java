@@ -16,9 +16,6 @@ import edu.brown.cs.ndemarco.josiah.UserFriendly;
 
 public class Request {
 
-	// Note that we leave a %s token in here to append the username:password.
-	// The final format for the query should be:
-	// "https://USERNAME:PASSWORD@esb.brown.edu/services/cis/faculty-lookup-api/v1/faculty";
 	private static final String ENDPOINT = "https://esb.brown.edu/services/cis/faculty-lookup-api/v1/faculty";
 	private static final String FIRST_NAME_PARAMETER = "first_name";
 	private static final String LAST_NAME_PARAMETER = "last_name";
@@ -71,15 +68,15 @@ public class Request {
 	private GenericUrl createUrl() {
 		GenericUrl url = new GenericUrl(ENDPOINT);
 
-		// Append credentials. Credentials _might_ be null, because it's
-		// conceivable that
-		// future versions of the API might have valid queries that do not
-		// require authorization.
-		// As of this writing, this is a de-facto required field, however. We
-		// delegate dealing with
-		// unauthorized requests at the time of execution: the API returns an
-		// error indicating an auth issue,
-		// and we throw an exception as a result.
+		/*
+		 * Append credentials. Credentials _might_ be null, because it's
+		 * conceivable that future versions of the API might have valid queries
+		 * that do not require authorization. As of this writing, this is a
+		 * de-facto required field, however. We delegate dealing with
+		 * unauthorized requests at the time of execution: the API returns an
+		 * error indicating an auth issue, and we throw an exception as a
+		 * result.
+		 */
 		if (builder.auth != null) {
 			url.setUserInfo(builder.auth.toString());
 		}

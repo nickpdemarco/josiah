@@ -1,6 +1,6 @@
 package edu.brown.cs.ndemarco.brownapi.Dining;
 
-public enum MEAL_TIME {
+public enum MEALTIME {
 	BREAKFAST(1),
 	BRUNCH(2), // Appears wholly unused by the api (at least for Brown)
 	LUNCH(3),
@@ -11,7 +11,7 @@ public enum MEAL_TIME {
 	
 	private int id;
 	
-	MEAL_TIME(int id) {
+	MEALTIME(int id) {
 		this.id = id;
 	}
 	

@@ -1,39 +1,42 @@
 package edu.brown.cs.ndemarco.josiah.Dining;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.brown.cs.ndemarco.brownapi.Dining.DINING_HALL;
-import edu.brown.cs.ndemarco.brownapi.Dining.Dining;
-import edu.brown.cs.ndemarco.brownapi.Dining.MEAL_TIME;
+import edu.brown.cs.ndemarco.brownapi.UserFriendlyException;
+import edu.brown.cs.ndemarco.brownapi.Dining.DININGHALL;
+import edu.brown.cs.ndemarco.brownapi.Dining.Request;
+import edu.brown.cs.ndemarco.brownapi.Dining.MEALTIME;
 import edu.brown.cs.ndemarco.brownapi.Dining.Response;
 import edu.brown.cs.ndemarco.brownapi.Dining.Station;
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
 import edu.brown.cs.ndemarco.josiah.QueryProcessor;
+import edu.brown.cs.ndemarco.josiah.UserFriendly;
 
 public class MenuProcessor implements QueryProcessor {
 
 	// TODO statically initialize these at compile time by checking a directory
-	private static final Map<String, DINING_HALL> halls = new HashMap<>();
+	private static final Map<String, DININGHALL> halls = new HashMap<>();
 	static {
-		halls.put("Sharpe Refactory", DINING_HALL.RATTY);
-		halls.put("Verney Wooley", DINING_HALL.VDUB);
-		halls.put("Andrews Dining Hall", DINING_HALL.ANDREWS);
-		halls.put("Blue Room", DINING_HALL.BLUEROOM);
-		halls.put("Josiah's", DINING_HALL.JOS);
-		halls.put("Ivy Room", DINING_HALL.IVYROOM);
-		halls.put("Campus Market", DINING_HALL.CAMPUS_MARKET);
+		halls.put("Sharpe Refactory", DININGHALL.RATTY);
+		halls.put("Verney Wooley", DININGHALL.VDUB);
+		halls.put("Andrews Dining Hall", DININGHALL.ANDREWS);
+		halls.put("Blue Room", DININGHALL.BLUEROOM);
+		halls.put("Josiah's", DININGHALL.JOS);
+		halls.put("Ivy Room", DININGHALL.IVYROOM);
+		halls.put("Campus Market", DININGHALL.CAMPUS_MARKET);
 	}
 
-	private static final Map<String, MEAL_TIME> meals = new HashMap<>();
+	private static final Map<String, MEALTIME> meals = new HashMap<>();
 	static {
-		meals.put("Breakfast", MEAL_TIME.BREAKFAST);
-		meals.put("Lunch", MEAL_TIME.LUNCH);
-		meals.put("Dinner", MEAL_TIME.DINNER);
+		meals.put("Breakfast", MEALTIME.BREAKFAST);
+		meals.put("Lunch", MEALTIME.LUNCH);
+		meals.put("Dinner", MEALTIME.DINNER);
 	}
 
 	static {
@@ -41,10 +44,10 @@ public class MenuProcessor implements QueryProcessor {
 		// Be sure to end with periods for good formatting!
 
 		// Blue Room
-		Station.assignOverride("12422", "Custom sandwiches.");
-		Station.assignOverride("12433", "Frittata breakfast sandwiches.");
-		Station.assignOverride("12421", "Focaccia sandwiches.");
-		Station.assignOverride("12174", "Fresh salad bar.");
+		StationPrinter.assignOverride("12422", "Custom sandwiches.");
+		StationPrinter.assignOverride("12433", "Frittata breakfast sandwiches.");
+		StationPrinter.assignOverride("12421", "Focaccia sandwiches.");
+		StationPrinter.assignOverride("12174", "Fresh salad bar.");
 
 	}
 
@@ -54,30 +57,29 @@ public class MenuProcessor implements QueryProcessor {
 		String meal = query.getResult().getStringParameter("meal");
 		String date = query.getResult().getStringParameter("date");
 
-		Dining.QueryBuilder dqb = new Dining.QueryBuilder();
+		Request.Builder diningQueryBuilder = new Request.Builder();
 
 		if (halls.containsKey(diningHall)) {
-			dqb.withDiningHall(halls.get(diningHall));
+			diningQueryBuilder.withDiningHall(halls.get(diningHall));
 		} else {
 			return JosiahFulfillment.simple("It looks like %s doesn't sell food.", diningHall);
 		}
 
 		if (meals.containsKey(meal)) {
-			dqb.withMealTime(meals.get(meal));
+			diningQueryBuilder.withMealTime(meals.get(meal));
 		}
 
-		dqb.withDate(date);
-		Response response = dqb.execute();
-
-		if (response.failed()) {
-			Exception e = response.error().exception();
-			String userFriendlyReason = response.error().userFriendlyReason();
-			System.out.format("ERROR: %s :: %s", (e == null) ? "No exception" : e.getMessage(), userFriendlyReason);
-
-			return JosiahFulfillment.simple(userFriendlyReason);
+		diningQueryBuilder.withDate(date);
+		Response response;
+		
+		try {
+			response = diningQueryBuilder.execute();
+		} catch (UserFriendlyException e) {
+			return JosiahFulfillment.simple(e.userFriendlyDescription());
 		}
-
+		
 		return JosiahFulfillment.simple(speechResponse(response));
+		
 	}
 
 	private String speechResponse(Response response) {

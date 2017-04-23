@@ -1,10 +1,9 @@
 package edu.brown.cs.ndemarco.brownapi.Dining;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -12,21 +11,6 @@ import com.google.api.client.util.Key;
 
 
 public class Station {
-	// MARK: Static:
-	/*
-	 The cafebonappetit API returns some unsatisfactory responses in terms
-	 of natural language. A great example is the Blue Room's sandwich bar.
-	 Understandably, the API returns a list of what breads, meats, etc, are available.
-	 But this is an unreasonable thing to actually _say_ to a user. So instead
-	 we'd say "custom sandwiches." Users can provide overrides below. 
-	 If an ID maps to a string in this map, then toString will return this 
-	 display _instead of_ a list of this station's items.
-	*/
-	private static Map<String, String> displayOverrides = new HashMap<>();
-	
-	public static void assignOverride(String stationId, String override) {
-		displayOverrides.put(stationId, override);
-	}
 	
 	public static Station withId(String id) {
 		return new Station(id);
@@ -53,7 +37,7 @@ public class Station {
 		this.id = "";
 		// This field is set by the parser.
 		this.itemIds = Collections.emptyList();
-		// And this field is manipulated by me.
+		// And this field is manipulated by this package.
 		this.items = new ArrayList<>();
 	}
 	
@@ -101,9 +85,6 @@ public class Station {
 	
 	@Override 
 	public String toString() {
-		if (displayOverrides.containsKey(id)) {
-			return displayOverrides.get(id);
-		}
 		if (items.isEmpty()) {
 			return "";
 		}

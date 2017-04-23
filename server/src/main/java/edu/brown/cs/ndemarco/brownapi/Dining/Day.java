@@ -3,7 +3,7 @@ package edu.brown.cs.ndemarco.brownapi.Dining;
 import java.util.Map;
 import com.google.api.client.util.Key;
 
-public  class Day {
+public class Day {
 	@Key
 	private String date;
 	

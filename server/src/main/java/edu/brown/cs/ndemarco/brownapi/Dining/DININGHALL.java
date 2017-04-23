@@ -1,6 +1,6 @@
 package edu.brown.cs.ndemarco.brownapi.Dining;
 
-public enum DINING_HALL {
+public enum DININGHALL {
 	RATTY(1531),
 	VDUB(1532),
 	ANDREWS(1533),
@@ -12,7 +12,7 @@ public enum DINING_HALL {
 	
 	private int id;
 	
-	DINING_HALL(int id) {
+	DININGHALL(int id) {
 		this.id = id;
 	}
 	

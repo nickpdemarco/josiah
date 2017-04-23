@@ -22,6 +22,7 @@ public class Item {
 	public String description() { return description; }
 	public Station station() { return station; }
 	// Setters
+	// can only be used within this package. This object should be immutable to others.
 	void station(Station station) { this.station = station; }
 	
 	@Override 

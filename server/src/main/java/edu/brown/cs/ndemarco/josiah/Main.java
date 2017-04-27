@@ -36,6 +36,7 @@ public abstract class Main {
 		
 		String pass = getSslPassword();
 		Spark.setSecure("../secure/ssl/KeyStore.jks", pass, "../secure/ssl/TrustStore.ts", pass);
+		Spark.setPort(80443); // TODO need to actually use nginx 
 		
 		Spark.get("/test", new TestHandler());
 		Spark.post("/echo", new EchoHandler());

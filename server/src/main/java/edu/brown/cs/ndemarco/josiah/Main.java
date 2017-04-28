@@ -1,13 +1,5 @@
 package edu.brown.cs.ndemarco.josiah;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import org.slf4j.Logger;
-
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -22,57 +14,25 @@ import spark.Spark;
 
 public abstract class Main {
 
-	private static final String SSL_PASSWORD_PATH = "../secure/keyStorePass";
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-
 	public static void main(String[] args) {
 		runSparkServer();
 	}
 
 	private static void runSparkServer() {
-		
-		//String pass = getSslPassword();
-		//Spark.setSecure("../secure/ssl/KeyStore.jks", pass, "../secure/ssl/TrustStore.ts", pass);
-		Spark.setPort(4567); 
-		
-		Spark.get("/test", new TestHandler());
-		Spark.post("/echo", new EchoHandler());
+		Spark.setPort(4567);
+		Spark.get("/", new RootHandler());
 		Spark.post("/handle", new RequestHandler());
 	}
 	
-	private static String getSslPassword() {
-		try (Scanner in = new Scanner(new File(SSL_PASSWORD_PATH))) {
-			return in.next();			
-		} catch (FileNotFoundException e) {
-			System.out.format("ERROR: NO FILE AT %s\n", SSL_PASSWORD_PATH);
-			throw new RuntimeException("Authorization file needed for proper execution");
-		}
-	}
-
-	private static class EchoHandler implements Route {
+	private static class RootHandler implements Route {
 
 		@Override
 		public Object handle(Request request, Response response) {
-			LOGGER.info(String.format("REQUEST: %s", request.body().replaceAll("\\s", "")));
-
-			response.type(Constants.RESPONSE_HEADER_TYPE);
-			return Constants.GSON.toJson(JosiahFulfillment.simple("Hello, world!"));
+			return "You've reached the home page for the Josiah project.\n" +
+					"We're still in development. Contact nicholas_demarco@brown.edu for details.";
 		}
-
 	}
 	
-	private static class TestHandler implements Route {
-
-		@Override
-		public Object handle(Request request, Response response) {
-			System.out.println("Test reached");
-			return "Hello, world!";
-		}
-
-		
-		
-	}
-
 	private static class RequestHandler implements Route {
 
 		private Josiah josiah;

@@ -13,15 +13,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import edu.brown.cs.ndemarco.brownapi.office.Authorization;
 import edu.brown.cs.ndemarco.josiah.Dining.MenuProcessor;
 import edu.brown.cs.ndemarco.josiah.Office.OfficeProcessor;
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Spark;
-import spark.TemplateViewRoute;
 
 public abstract class Main {
 
@@ -36,7 +33,7 @@ public abstract class Main {
 		
 		String pass = getSslPassword();
 		Spark.setSecure("../secure/ssl/KeyStore.jks", pass, "../secure/ssl/TrustStore.ts", pass);
-		Spark.setPort(80443); // TODO need to actually use nginx 
+		Spark.setPort(80); // TODO need to actually use nginx 
 		
 		Spark.get("/test", new TestHandler());
 		Spark.post("/echo", new EchoHandler());

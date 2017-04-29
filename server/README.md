@@ -44,6 +44,3 @@ We can then create "subpackages" that are generally responsible for single inten
 
 ### brownapi
 There is considerably less similarity between subpackages within `brownapi`. Each package is responsible for parsing the response from an API provided by Brown, which bear little similarity to each other. 
-
-## TODO
-For now, this server is being hosted on Google Cloud, and doesn't have any SSL certificates. I'm delaying this until we solidify with Brown's Networking team. It's possible / likely that this server will be routed to from an endpoint that has Brown's SSL certification.

@@ -1,9 +1,5 @@
 package edu.brown.cs.ndemarco.josiah;
 
-import org.slf4j.Logger;
-
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -18,29 +14,25 @@ import spark.Spark;
 
 public abstract class Main {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-
 	public static void main(String[] args) {
 		runSparkServer();
 	}
 
 	private static void runSparkServer() {
-		Spark.post("/echo", new EchoHandler());
+		Spark.setPort(4567);
+		Spark.get("/", new RootHandler());
 		Spark.post("/handle", new RequestHandler());
 	}
-
-	private static class EchoHandler implements Route {
+	
+	private static class RootHandler implements Route {
 
 		@Override
 		public Object handle(Request request, Response response) {
-			LOGGER.info(String.format("REQUEST: %s", request.body().replaceAll("\\s", "")));
-
-			response.type(Constants.RESPONSE_HEADER_TYPE);
-			return Constants.GSON.toJson(JosiahFulfillment.simple("Hello, world!"));
+			return "You've reached the home page for the Josiah project.\n" +
+					"We're still in development. Contact nicholas_demarco@brown.edu for details.";
 		}
-
 	}
-
+	
 	private static class RequestHandler implements Route {
 
 		private Josiah josiah;

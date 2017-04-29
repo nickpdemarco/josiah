@@ -1,6 +1,5 @@
 package edu.brown.cs.ndemarco.josiah.Dining;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import edu.brown.cs.ndemarco.brownapi.Dining.Station;
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
 import edu.brown.cs.ndemarco.josiah.QueryProcessor;
-import edu.brown.cs.ndemarco.josiah.UserFriendly;
 
 public class MenuProcessor implements QueryProcessor {
 

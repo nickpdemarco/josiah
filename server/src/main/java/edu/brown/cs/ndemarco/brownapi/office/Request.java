@@ -11,8 +11,6 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
-import edu.brown.cs.ndemarco.brownapi.UserFriendlyException;
-import edu.brown.cs.ndemarco.josiah.UserFriendly;
 
 public class Request {
 
@@ -31,11 +29,10 @@ public class Request {
 		this.builder = b;
 	}
 
-	private Response execute() throws UserFriendlyException {
+	private Response execute() throws IOException {
 		GenericUrl url = createUrl();
 
 		HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer() {
-			// TODO this will fail if auth fields are null. Needs refactor.
 			private final BasicAuthentication auth = new BasicAuthentication(builder.auth.getUsername(),
 					builder.auth.getPassword());
 
@@ -48,18 +45,13 @@ public class Request {
 		});
 
 		Response response = Response.emptyResponse();
-
-		try {
-			// Make the request
-			HttpRequest request = requestFactory.buildGetRequest(url);
-			// Execute and parse the response. May throw IOException.
-			HttpResponse http = request.execute();
-			response = ResponseStreamDecoder.decode(http);
-		} catch (IOException e) {
-			// TODO disconnect Josiah functionality (UserFriendly) from the API.
-			System.out.println(e.getMessage());
-			throw new UserFriendlyException(e, UserFriendly.OTHER_SERVICE_FAILED);
-		}
+		
+		// Make the request
+		HttpRequest request = requestFactory.buildGetRequest(url);
+		// Execute and parse the response. May throw IOException.
+		HttpResponse http = request.execute();
+		response = ResponseStreamDecoder.decode(http);
+		
 
 		return response;
 	}
@@ -102,6 +94,10 @@ public class Request {
 		private String firstNamePrefix;
 		private String lastNamePrefix;
 
+		public Builder() {
+			this.auth = Authorization.emptyAuthorization();
+		}
+		
 		public Builder withAuthorization(Authorization auth) {
 			this.auth = auth;
 			return this;
@@ -122,7 +118,7 @@ public class Request {
 			return this;
 		}
 
-		public Response execute() throws UserFriendlyException {
+		public Response execute() throws IOException {
 			return new Request(this).execute();
 		}
 	}

@@ -2,6 +2,7 @@ package edu.brown.cs.ndemarco.brownapi.Dining;
 
 import java.io.IOException;
 
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,9 +20,6 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import edu.brown.cs.ndemarco.brownapi.UserFriendlyException;
-import edu.brown.cs.ndemarco.josiah.UserFriendly;
-import edu.brown.cs.ndemarco.josiah.apiaiUtil.ApiAiDate;
 
 public class Request {
 
@@ -55,7 +53,7 @@ public class Request {
 
 	}
 
-	private Response execute() throws UserFriendlyException {
+	private Response execute() throws IOException {
 		if (itemId != null && diningHall != null) {
 			// choose not to throw UserFriendly because this should not bubble up to user.
 			throw new IllegalArgumentException(
@@ -79,20 +77,11 @@ public class Request {
 
 		Response response = Response.emptyResponse();
 
-		try {
-			// Make the request
-			HttpRequest request = requestFactory.buildGetRequest(diningUrl);
-			// Execute and parse the response. May throw IOException.
-			response = request.execute().parseAs(Response.class);
-		} catch (IOException e) {
-			// TODO disconnect Josiah functionality (UserFriendly) from the API.
-			throw new UserFriendlyException(e, UserFriendly.OTHER_SERVICE_FAILED);
-		}
-		
-		if (response.stations().isEmpty()) { 
-			throw new UserFriendlyException(null, UserFriendly.EMPTY_DINING_RESPONSE);
-		}
-
+		// Make the request
+		HttpRequest request = requestFactory.buildGetRequest(diningUrl);
+		// Execute and parse the response. May throw IOException.
+		response = request.execute().parseAs(Response.class);
+	
 		for (Station station : response.stations()) {
 			for (String itemId : station.itemIds()) {
 				// We need to manually set references to stations
@@ -168,13 +157,6 @@ public class Request {
 			return this;
 		}
 
-		public Builder withDate(String dateString) {
-			if (dateString != null && !dateString.equals("")) {
-				this.date = ApiAiDate.parse(dateString);
-			}
-			return this;
-		}
-
 		public Builder withItemId(String id) {
 			this.itemId = id;
 			return this;
@@ -193,7 +175,7 @@ public class Request {
 			return this;
 		}
 
-		public Response execute() throws UserFriendlyException {
+		public Response execute() throws IOException {
 			return new Request(this).execute();
 		}
 	}

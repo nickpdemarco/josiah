@@ -1,15 +1,17 @@
 package edu.brown.cs.ndemarco.josiah.Office;
 
+import java.io.IOException;
+
 import java.util.List;
 
 import edu.brown.cs.ndemarco.brownapi.office.Request;
-import edu.brown.cs.ndemarco.brownapi.UserFriendlyException;
 import edu.brown.cs.ndemarco.brownapi.office.Authorization;
 import edu.brown.cs.ndemarco.brownapi.office.Response;
 import edu.brown.cs.ndemarco.brownapi.office.Response.Person;
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
 import edu.brown.cs.ndemarco.josiah.QueryProcessor;
+import edu.brown.cs.ndemarco.josiah.UserFriendly;
 
 public class OfficeProcessor implements QueryProcessor {
 
@@ -28,14 +30,14 @@ public class OfficeProcessor implements QueryProcessor {
 		Response resp;
 		try {
 			resp = new Request.Builder().withAuthorization(auth).withBrownId(professorId).execute();
-		} catch (UserFriendlyException e) {
-			return JosiahFulfillment.simple(e.userFriendlyDescription());
+		} catch (IOException e) {
+			return JosiahFulfillment.simple(UserFriendly.OTHER_SERVICE_FAILED);
 		}
 
 		List<Person> people = resp.getPeople();
 
 		if (people.isEmpty()) {
-			return JosiahFulfillment.simple("Unfortunately, I don't have data on that professor.");
+			return JosiahFulfillment.simple(UserFriendly.EMPTY_PROFESSOR_RESPONSE);
 		}
 
 		if (people.size() > 1) {
@@ -49,26 +51,26 @@ public class OfficeProcessor implements QueryProcessor {
 		case LOCATION_INTENT:
 			return handleOfficeLocation(resp.getPeople().get(0));
 		default:
-			throw new RuntimeException("This should never happen.");
+			throw new RuntimeException("Got an intent other than what I'm responsible for. This should never happen.");
 		}
 	}
 
 	private JosiahFulfillment handleOfficeHours(Person prof) {
 		if (prof.getOfficeHours() == null || prof.getOfficeHours() == "") {
-			return JosiahFulfillment.simple("It seems like %s %s has not set their office hours in our database.",
+			return JosiahFulfillment.simple(UserFriendly.FORMAT_NO_OFFICE_HOURS,
 					prof.getFirstName(), prof.getLastName());
 		}
 
-		return JosiahFulfillment.simple("%s %s has listed their office hours as: %s", prof.getFirstName(),
+		return JosiahFulfillment.simple(UserFriendly.FORMAT_OFFICE_HOURS_RESPONSE, prof.getFirstName(),
 				prof.getLastName(), prof.getOfficeHours());
 	}
 
 	private JosiahFulfillment handleOfficeLocation(Person prof) {
 		if (prof.getLocation() == null || prof.getLocation() == "") {
-			return JosiahFulfillment.simple("It seems like %s %s has not set their office location in our database.",
+			return JosiahFulfillment.simple(UserFriendly.FORMAT_NO_OFFICE_LOCATION,
 					prof.getFirstName(), prof.getLastName());
 		}
-		return JosiahFulfillment.simple("%s %s has listed their office location as: %s", prof.getFirstName(),
+		return JosiahFulfillment.simple(UserFriendly.FORMAT_OFFICE_LOCATION_RESPONSE, prof.getFirstName(),
 				prof.getLastName(), prof.getLocation());
 	}
 

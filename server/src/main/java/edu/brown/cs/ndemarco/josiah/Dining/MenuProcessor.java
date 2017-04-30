@@ -1,12 +1,13 @@
 package edu.brown.cs.ndemarco.josiah.Dining;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.brown.cs.ndemarco.brownapi.UserFriendlyException;
 import edu.brown.cs.ndemarco.brownapi.Dining.DININGHALL;
 import edu.brown.cs.ndemarco.brownapi.Dining.Request;
 import edu.brown.cs.ndemarco.brownapi.Dining.MEALTIME;
@@ -15,10 +16,11 @@ import edu.brown.cs.ndemarco.brownapi.Dining.Station;
 import edu.brown.cs.ndemarco.josiah.JosiahFulfillment;
 import edu.brown.cs.ndemarco.josiah.JosiahQuery;
 import edu.brown.cs.ndemarco.josiah.QueryProcessor;
+import edu.brown.cs.ndemarco.josiah.UserFriendly;
+import edu.brown.cs.ndemarco.josiah.apiaiUtil.ApiAiDate;
 
 public class MenuProcessor implements QueryProcessor {
 
-	// TODO statically initialize these at compile time by checking a directory
 	private static final Map<String, DININGHALL> halls = new HashMap<>();
 	static {
 		halls.put("Sharpe Refactory", DININGHALL.RATTY);
@@ -67,13 +69,13 @@ public class MenuProcessor implements QueryProcessor {
 			diningQueryBuilder.withMealTime(meals.get(meal));
 		}
 
-		diningQueryBuilder.withDate(date);
+		diningQueryBuilder.withDate(ApiAiDate.parse(date));
 		Response response;
 		
 		try {
 			response = diningQueryBuilder.execute();
-		} catch (UserFriendlyException e) {
-			return JosiahFulfillment.simple(e.userFriendlyDescription());
+		} catch (IOException e) {
+			return JosiahFulfillment.simple(UserFriendly.OTHER_SERVICE_FAILED);
 		}
 		
 		return JosiahFulfillment.simple(speechResponse(response));
@@ -82,6 +84,11 @@ public class MenuProcessor implements QueryProcessor {
 
 	private String speechResponse(Response response) {
 		List<Station> stations = new ArrayList<>(response.stations());
+		
+		if (stations.isEmpty()) {
+			return UserFriendly.EMPTY_DINING_RESPONSE;
+		}
+		
 		stations.sort(new StationComparator());
 		StringBuilder sb = new StringBuilder();
 		for (Station s : stations) {

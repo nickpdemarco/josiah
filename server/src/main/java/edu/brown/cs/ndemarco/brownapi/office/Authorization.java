@@ -12,6 +12,15 @@ public class Authorization {
 		this.username = b.username;
 		this.password = b.password;
 	}
+	
+	private Authorization() {
+		this.username = "";
+		this.password = "";
+	}
+	
+	public static Authorization emptyAuthorization() {
+		return new Authorization();
+	}
 
 	// Credentials are only visible within the package.
 	String getUsername() {

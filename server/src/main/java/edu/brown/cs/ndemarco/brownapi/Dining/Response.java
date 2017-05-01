@@ -31,7 +31,7 @@ public class Response {
 	public Map<String, Item> items() { return items; }
 	
 	public List<Station> stations(){
-		if (stations != null) {
+		if (stations == null) {
 			List<Station> stations = new ArrayList<>();
 			// The hyper-nested loop! Don't be scared - because this is only
 			// iterating over the deserialized json object, it may look gross,

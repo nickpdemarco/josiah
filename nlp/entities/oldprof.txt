@@ -1,0 +1,206 @@
+[
+    {
+        "value": "010024730",
+        "synonyms": [
+            "Thomas W. Doeppner",
+            "Tom Doeppner",
+            "Twid",
+            "Professor Doeppner",
+            "twd"
+        ]
+    },
+    {
+        "value": "010130879",
+        "synonyms": [
+            "Ugur Cetintemel",
+            "Professor Cetintemel"
+        ]
+    },
+    {
+        "value": "010024044",
+        "synonyms": [
+            "Eugene Charniak",
+            "Professor Charniak"
+        ]
+    },
+    {
+        "value": "010372346",
+        "synonyms": [
+            "Rodrigo Fonseca",
+            "Professor Fonseca"
+        ]
+    },
+    {
+        "value": "010115051",
+        "synonyms": [
+            "Amy Greenwald",
+            "Professor Greenwald"
+        ]
+    },
+    {
+        "value": "010025877",
+        "synonyms": [
+            "Maurice Herlihy",
+            "Professor Herlihy"
+        ]
+    },
+    {
+        "value": "010674285",
+        "synonyms": [
+            "Jeff Huang",
+            "Professor Huang"
+        ]
+    },
+    {
+        "value": "010026044",
+        "synonyms": [
+            "John Hughes",
+            "Professor Hughes",
+            "spike",
+            "Spike"
+        ]
+    },
+    {
+        "value": "010184722",
+        "synonyms": [
+            "Sorin Istrail",
+            "Professor Istrail"
+        ]
+    },
+    {
+        "value": "140103684",
+        "synonyms": [
+            "Seny Kamara",
+            "Professor Kamara"
+        ]
+    },
+    {
+        "value": "140049755",
+        "synonyms": [
+            "Vasileios Kemerlis",
+            "Professor Kemerlis"
+        ]
+    },
+    {
+        "value": "010026426",
+        "synonyms": [
+            "Philip Klein",
+            "Professor Klein"
+        ]
+    },
+    {
+        "value": "010507277",
+        "synonyms": [
+            "Caroline Klivans",
+            "Carly Klivans",
+            "Professor Klivans"
+        ]
+    },
+    {
+        "value": "140111315",
+        "synonyms": [
+            "George Konidaris",
+            "Professor Konidaris"
+        ]
+    },
+    {
+        "value": "020608302",
+        "synonyms": [
+            "Tim Kraska",
+            "Professor Kraska"
+        ]
+    },
+    {
+        "value": "010120377",
+        "synonyms": [
+            "Shriram Krishnamurthi",
+            "Professor Krishnamurthi",
+            "Shriram"
+        ]
+    },
+    {
+        "value": "002200093",
+        "synonyms": [
+            "David H. Laidlaw",
+            "Professor Laidlaw"
+        ]
+    },
+    {
+        "value": "002285237",
+        "synonyms": [
+            "Michael L. Littman",
+            "Professor Littman"
+        ]
+    },
+    {
+        "value": "010144300",
+        "synonyms": [
+            "Anna Lysyanskaya",
+            "Professor Lysyanskaya"
+        ]
+    },
+    {
+        "value": "010070803",
+        "synonyms": [
+            "Barbara J. Meier",
+            "Professor Meier"
+        ]
+    },
+    {
+        "value": "010028395",
+        "synonyms": [
+            "Steve Reiss",
+            "Professor Reiss"
+        ]
+    },
+    {
+        "value": "010028772",
+        "synonyms": [
+            "John Savage",
+            "Professor Savage"
+        ]
+    },
+    {
+        "value": "010029430",
+        "synonyms": [
+            "Roberto Tamassia",
+            "Professor Tamassia"
+        ]
+    },
+    {
+        "value": "010608794",
+        "synonyms": [
+            "Stefanie Tellex",
+            "Professor Tellex"
+        ]
+    },
+    {
+        "value": "140111314",
+        "synonyms": [
+            "James Tompkin",
+            "Professor Tompkin"
+        ]
+    },
+    {
+        "value": "010597782",
+        "synonyms": [
+            "Paul Valiant",
+            "Professor Valiant"
+        ]
+    },
+    {
+        "value": "010029717",
+        "synonyms": [
+            "Andy van Dam",
+            "Professor van Dam",
+            "Andries van Dam"
+        ]
+    },
+    {
+        "value": "010025878",
+        "synonyms": [
+            "Patricia Herlihy",
+            "Dean Herlihy"
+        ]
+    }
+]

@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+
 import requests
 import os
 import fnmatch
@@ -30,8 +32,6 @@ def main() :
 		return -1
 
 	updateAllEntities()
-
-	print("Entries have been updated.")
 	
 def allJsonFilesRecursively(path) :
 	matches = []
@@ -56,6 +56,9 @@ def updateAllEntities() :
 			try :
 				if not jsonError(r.json()) :
 					print("Success updating " + entityName)
+				else:
+					print("Some error occurred with " + entityName)
+					print r.json()
 			except json.decoder.JSONDecodeError:
 				print(r.text)
 

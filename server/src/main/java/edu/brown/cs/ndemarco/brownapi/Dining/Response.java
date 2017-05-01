@@ -32,7 +32,7 @@ public class Response {
 	
 	public List<Station> stations(){
 		if (stations == null) {
-			List<Station> stations = new ArrayList<>();
+			stations = new ArrayList<>();
 			// The hyper-nested loop! Don't be scared - because this is only
 			// iterating over the deserialized json object, it may look gross,
 			// but is actually fairly quick. 

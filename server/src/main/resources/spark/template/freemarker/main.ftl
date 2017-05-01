@@ -2,6 +2,7 @@
 <head>
   <meta charset="utf-8">
   <title>${title}</title>
+  <link rel="shortcut icon" href="/img/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>

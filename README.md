@@ -1,6 +1,8 @@
 # josiah
 Josiah is Brown University's personal assistant. Aimed to be an cohesive extension to established products like Google Home and Amazon Echo. If you don't have a personal device, you can still play with the API.ai bot at [https://bot.api.ai/josiah](https://bot.api.ai/josiah). 
 
+**Update**: Unfortunately, the link above has broken due to some deprecated underlying Brown APIs. The natural language processing seems to work, but queries to the various Brown APIs (menus, calendars, etc) will fail ungracefully.
+
 ## Architecture
 
 A summary of the architecture of the Josiah pipeline is shown below.
